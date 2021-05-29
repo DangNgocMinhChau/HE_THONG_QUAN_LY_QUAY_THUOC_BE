@@ -1,6 +1,7 @@
 package com.chaudang.managephamarcity.services.quanlybanhangthanhcong;
 
 import com.chaudang.managephamarcity.models.quanlybanhang.QuanLyBanHangDTO;
+import com.chaudang.managephamarcity.models.quanlybanhang.SanPham;
 import com.chaudang.managephamarcity.models.quanlybanhang.SanPhamDTO;
 import com.chaudang.managephamarcity.models.quanlybanhangthanhcong.QuanLyBanHangThanhCong;
 import com.chaudang.managephamarcity.models.quanlybanhangthanhcong.SanPhamThanhCong;
@@ -11,6 +12,7 @@ import com.chaudang.managephamarcity.models.quanlythongtinkhachhang.QuanLyThongT
 import com.chaudang.managephamarcity.repositorys.quanlybanhang.SanPhamRepository;
 import com.chaudang.managephamarcity.repositorys.quanlybanhangthanhcong.QuanLyBanHangThanhCongRepository;
 import com.chaudang.managephamarcity.repositorys.quanlybanhangthanhcong.SanPhamThanhCongRepository;
+import com.chaudang.managephamarcity.repositorys.quanlykhothuoc.QuanLyKhoThuocRepository;
 import com.chaudang.managephamarcity.services.quanlykhothuoc.QuanLyKhoThuocService;
 import com.chaudang.managephamarcity.services.quanlytaikhoan.QuanLyTaiKhoanService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,6 +44,9 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
 
     @Autowired
     SanPhamRepository sanPhamRepository;
+
+    @Autowired
+    QuanLyKhoThuocRepository quanLyKhoThuocRepository;
 
     @Override
     public Map<String, Object> create(QuanLyBanHangDTO quanLyBanHangDTO) {
@@ -75,6 +80,14 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 sanPhamDTO.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
                 sanPhamDTO.setFlag(quanLyBanHangThanhCong.getFlag());
                 sanPhamThanhCongService.create(sanPhamDTO);
+
+                KhoThuoc khoThuoc = quanLyKhoThuocService.findById(Long.parseLong(idThuoc));
+                khoThuoc.setId(Long.parseLong(idThuoc));
+                khoThuoc.setSoLuongMua(Long.parseLong(soLuongMua));
+                khoThuoc.setSoLuongDaBan(Long.parseLong(soLuongMua) + khoThuoc.getSoLuongDaBan());
+
+                quanLyKhoThuocRepository.save(khoThuoc);
+
             }
 
             result.put("result", quanLyBanHangThanhCong);
@@ -124,6 +137,8 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 String idThuoc = jsonObject.get("idThuoc").toString();
                 String soLuongMua = jsonObject.get("soLuongMua").toString();
                 String idSanPham = jsonObject.get("id").toString();
+                String soLuongDaBan = jsonObject.get("soLuongDaBan").toString();
+
                 if (!idSanPham.equals("null")) {
                     idSanPhamDangCo.add(Long.parseLong(idSanPham));
                     sanPhamDTO.setKhoThuocId(Long.parseLong(idThuoc));
@@ -135,7 +150,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     sanPhamThanhCongService.update(Long.parseLong(idSanPham), sanPhamDTO);
 
                 } else {
-                    System.out.println("qua ko");
                     sanPhamDTO.setKhoThuocId(Long.parseLong(idThuoc));
                     sanPhamDTO.setSoLuongMua(Long.parseLong(soLuongMua));
                     sanPhamDTO.setQuanLyBanHangId(object.getId());
@@ -144,9 +158,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     sanPhamDTO.setFlag(object.getFlag());
                     sanPhamThanhCongService.create(sanPhamDTO);
                 }
-
             }
-
 
             // Thông tin tài khoản
             QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangDTO.getNguoiTaoId());
@@ -201,6 +213,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                 thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                 thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
+
 
                 arr.add(thuocDaMuaDTO);
             }
@@ -289,7 +302,9 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
-
+                    thuocDaMuaDTO.setSoLuongMuaBanDau(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangDTO.getId()).get(i).getSoLuongMua());
+                    thuocDaMuaDTO.setNhaCungCapId(khoThuocItem.getQuanLyNhaCungCap().getId());
+                    thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
                     arr.add(thuocDaMuaDTO);
                 }
 

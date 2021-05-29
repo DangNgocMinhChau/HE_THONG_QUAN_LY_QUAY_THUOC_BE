@@ -312,6 +312,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 khoThuocDTO.setPhanTramThue(khoThuoc.getPhanTramThue());
                 khoThuocDTO.setChietKhau(khoThuoc.getChietKhau());
                 khoThuocDTO.setGiaTien(khoThuoc.getGiaTien());
+                khoThuocDTO.setNhaCungCapId(khoThuoc.getQuanLyNhaCungCap().getId());
                 khoThuocDTO.setThanhToan(khoThuoc.getThanhToan());
                 khoThuocDTO.setSoLuongNhap(khoThuoc.getSoLuongNhap());
                 khoThuocDTO.setSoLuongDaBan(khoThuoc.getSoLuongDaBan());

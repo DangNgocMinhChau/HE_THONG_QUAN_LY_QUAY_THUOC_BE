@@ -3,6 +3,7 @@ package com.chaudang.managephamarcity.controllers.quanlybanhangthanhcong;
 
 import com.chaudang.managephamarcity.models.quanlybanhang.QuanLyBanHangDTO;
 import com.chaudang.managephamarcity.models.quanlybanhang.SanPhamDTO;
+import com.chaudang.managephamarcity.repositorys.quanlybanhang.SanPhamRepository;
 import com.chaudang.managephamarcity.services.quanlybanhangthanhcong.QuanLyBanHangThanhCongService;
 import com.chaudang.managephamarcity.services.quanlybanhangthanhcong.SanPhamThanhCongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,12 @@ public class QuanLyBanHangThanhCongController {
     @Autowired
     private SanPhamThanhCongService sanPhamThanhCongService;
 
+    @Autowired
+    private SanPhamRepository sanPhamRepository;
+
     @PostMapping()
     public Map<String, Object> create(@RequestBody QuanLyBanHangDTO quanLyBanHangDTO) {
+        sanPhamRepository.deleteAll();
         return quanLyBanHangThanhCongService.create(quanLyBanHangDTO);
     }
 
@@ -41,8 +46,6 @@ public class QuanLyBanHangThanhCongController {
     public Map<String, Object> update(@PathVariable Long id, @RequestBody QuanLyBanHangDTO quanLyBanHangDTO) {
         return quanLyBanHangThanhCongService.update(id, quanLyBanHangDTO);
     }
-
-
 
     @GetMapping(value="/getAllSanPhamByIdBanHang/{id}")
     public List<SanPhamDTO> getQuanLyBanHangById(@PathVariable Long id){

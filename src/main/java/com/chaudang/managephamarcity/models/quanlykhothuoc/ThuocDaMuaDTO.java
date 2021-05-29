@@ -15,10 +15,13 @@ public class ThuocDaMuaDTO {
     private Long soLuongNhap;
     private Long soLuongDaBan;
     private Long soLuongMua;
+    private Long soLuongMua2;
+    private Long soLuongMuaBanDau;
     private String khuVuc;
     private String phanLoaiThuoc;
     private String hanSuDungThuoc;
     private Long nguoiTaoId;
+    private Long nhaCungCapId;
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
@@ -202,5 +205,29 @@ public class ThuocDaMuaDTO {
 
     public void setTotalTien(Double totalTien) {
         this.totalTien = totalTien;
+    }
+
+    public Long getSoLuongMua2() {
+        return soLuongMua2;
+    }
+
+    public void setSoLuongMua2(Long soLuongMua2) {
+        this.soLuongMua2 = soLuongMua2;
+    }
+
+    public Long getSoLuongMuaBanDau() {
+        return soLuongMuaBanDau;
+    }
+
+    public void setSoLuongMuaBanDau(Long soLuongMuaBanDau) {
+        this.soLuongMuaBanDau = soLuongMuaBanDau;
+    }
+
+    public Long getNhaCungCapId() {
+        return nhaCungCapId;
+    }
+
+    public void setNhaCungCapId(Long nhaCungCapId) {
+        this.nhaCungCapId = nhaCungCapId;
     }
 }
