@@ -1,8 +1,12 @@
 package com.example.quanlyquanthuoc.models.quanlykhothuoc;
 
 
+import com.example.quanlyquanthuoc.models.quanlyfiles.FileDB;
 import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCap;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KhoThuocDTO {
     private Long id;
@@ -29,6 +33,7 @@ public class KhoThuocDTO {
     private QuanLyTaiKhoan thongTinNguoiTao;
     private String fileDinhKem;
     private String tenNhaCungCap;
+    private List fileDBArrayList;
 
     public Long getId() {
         return id;
@@ -220,5 +225,13 @@ public class KhoThuocDTO {
 
     public void setFileDinhKem(String fileDinhKem) {
         this.fileDinhKem = fileDinhKem;
+    }
+
+    public List getFileDBArrayList() {
+        return fileDBArrayList;
+    }
+
+    public void setFileDBArrayList(List fileDBArrayList) {
+        this.fileDBArrayList = fileDBArrayList;
     }
 }

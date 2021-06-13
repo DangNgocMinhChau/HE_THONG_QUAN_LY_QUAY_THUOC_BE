@@ -19,13 +19,16 @@ public class FileDB {
   @Lob
   private byte[] data;
 
+  private String path;
+
   public FileDB() {
   }
 
-  public FileDB(String name, String type, byte[] data) {
+  public FileDB(String name, String type, byte[] data, String path) {
     this.name = name;
     this.type = type;
     this.data = data;
+    this.path = path;
   }
 
   public String getId() {
@@ -56,4 +59,15 @@ public class FileDB {
     this.data = data;
   }
 
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
 }

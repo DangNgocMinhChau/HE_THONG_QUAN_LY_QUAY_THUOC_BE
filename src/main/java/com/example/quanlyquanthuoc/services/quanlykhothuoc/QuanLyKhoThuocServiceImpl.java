@@ -1,20 +1,21 @@
 package com.example.quanlyquanthuoc.services.quanlykhothuoc;
 
 
+import com.example.quanlyquanthuoc.models.quanlyfiles.ResponseFile;
+import com.example.quanlyquanthuoc.models.quanlyfiles.FileDB;
 import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuoc;
 import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuocDTO;
 import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCap;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
+import com.example.quanlyquanthuoc.repositorys.quanlyfiles.FileDBRepository;
 import com.example.quanlyquanthuoc.repositorys.quanlykhothuoc.QuanLyKhoThuocRepository;
 import com.example.quanlyquanthuoc.services.quanlynhacungcap.QuanLyNhaCungCapService;
 import com.example.quanlyquanthuoc.services.quanlytaikhoan.QuanLyTaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
@@ -25,6 +26,9 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
     QuanLyNhaCungCapService quanLyNhaCungCapService;
     @Autowired
     QuanLyTaiKhoanService quanLyTaiKhoanService;
+
+    @Autowired
+    FileDBRepository fileDBRepository;
 
     @Override
     public Map<String, Object> create(KhoThuocDTO khoThuocDTO) {
@@ -86,6 +90,28 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
             quanLyTaiKhoanItem.setNgayChinhSua(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayChinhSua());
 
 
+            // file đính kèm
+            List arrListFileDinhKem = new ArrayList();
+            if(khoThuocDTO.getFileDinhKem() != null){
+                String listIdFileDinhKem = khoThuocDTO.getFileDinhKem();
+                String[] listId = listIdFileDinhKem.split("/");
+                for (int i = 0; i <listId.length ; i++) {
+                    Optional<FileDB> fileItem =  fileDBRepository.findById(listId[i]);
+                    ResponseFile responseFile = new ResponseFile();
+                    responseFile.setId(fileItem.get().getId());
+                    responseFile.setName(fileItem.get().getName());
+                    responseFile.setSize(fileItem.get().getData().length);
+                    responseFile.setType(fileItem.get().getType());
+                    responseFile.setUrl( ServletUriComponentsBuilder
+                            .fromCurrentContextPath()
+                            .path("/files/")
+                            .path(fileItem.get().getId())
+                            .toUriString());
+                    arrListFileDinhKem.add(responseFile);
+                }
+            }
+            resultCreate.setFileDBArrayList(arrListFileDinhKem);
+
             resultCreate.setId(khoThuoc.getId());
             resultCreate.setTenThuoc(khoThuoc.getTenThuoc());
             resultCreate.setMa(khoThuoc.getMa());
@@ -108,6 +134,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
             resultCreate.setNhaCungCapId( quanLyNhaCungCapService.findById(khoThuocDTO.getNhaCungCapId()).getId());
             resultCreate.setQuanLyNhaCungCap(quanLyNhaCungCapItem);
             resultCreate.setThongTinNguoiTao(quanLyTaiKhoanItem);
+
             result.put("result",resultCreate);
             result.put("msg","Thêm mói thành công");
             result.put("status",true);
@@ -147,6 +174,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 object.setPhanLoaiThuoc(khoThuocDTO.getPhanLoaiThuoc());
                 object.setNgayChinhSua(khoThuocDTO.getNgayChinhSua());
                 object.setQuanLyNhaCungCap(quanLyNhaCungCapService.findById(khoThuocDTO.getNhaCungCapId()));
+                object.setFileDinhKem(khoThuocDTO.getFileDinhKem());
 
                 QuanLyNhaCungCap quanLyNhaCungCapItem  = new QuanLyNhaCungCap();
 
@@ -181,6 +209,31 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 quanLyTaiKhoanItem.setNgayTaoBanGhi(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayTaoBanGhi());
                 quanLyTaiKhoanItem.setNgayChinhSua(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayChinhSua());
 
+
+                // file đính kèm
+                List arrListFileDinhKem = new ArrayList();
+                if(khoThuocDTO.getFileDinhKem() != null){
+                    String listIdFileDinhKem = khoThuocDTO.getFileDinhKem();
+                    String[] listId = listIdFileDinhKem.split("/");
+                    for (int i = 0; i <listId.length ; i++) {
+                        Optional<FileDB> fileItem =  fileDBRepository.findById(listId[i]);
+                        ResponseFile responseFile = new ResponseFile();
+                        responseFile.setId(fileItem.get().getId());
+                        responseFile.setName(fileItem.get().getName());
+                        responseFile.setSize(fileItem.get().getData().length);
+                        responseFile.setType(fileItem.get().getType());
+                        responseFile.setUrl( ServletUriComponentsBuilder
+                                .fromCurrentContextPath()
+                                .path("/files/")
+                                .path(fileItem.get().getId())
+                                .toUriString());
+                        arrListFileDinhKem.add(responseFile);
+                    }
+                }
+
+
+                resultUpdate.setFileDBArrayList(arrListFileDinhKem);
+
                 resultUpdate.setId(id);
                 resultUpdate.setTenThuoc(khoThuocDTO.getTenThuoc());
                 resultUpdate.setMa(khoThuocDTO.getMa());
@@ -200,6 +253,8 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 resultUpdate.setNgayChinhSua(khoThuocDTO.getNgayChinhSua());
                 resultUpdate.setQuanLyNhaCungCap(quanLyNhaCungCapItem);
                 resultUpdate.setThongTinNguoiTao(quanLyTaiKhoanItem);
+                resultUpdate.setTenNhaCungCap(quanLyNhaCungCapService.findById(object.getQuanLyNhaCungCap().getId()).getTenNhaCungCap());
+
 
                 quanLyKhoThuocRepository.save(object);
 
@@ -244,7 +299,8 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 khoThuocDTO.setHanSuDungThuoc(khoThuoc.getHanSuDungThuoc());
                 khoThuocDTO.setNguoiTaoId(khoThuoc.getNguoiTaoId());
                 khoThuocDTO.setNhaCungCapId(khoThuoc.getQuanLyNhaCungCap().getId());
-
+                khoThuocDTO.setFileDinhKem(khoThuoc.getFileDinhKem());
+                khoThuocDTO.setTenNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getTenNhaCungCap());
 
                 QuanLyNhaCungCap quanLyNhaCungCapItem  = new QuanLyNhaCungCap();
                 quanLyNhaCungCapItem.setId(quanLyNhaCungCapService.findById(khoThuocDTO.getNhaCungCapId()).getId());
@@ -264,6 +320,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 quanLyTaiKhoanItem.setId(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getId());
                 quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getTenDangNhap());
                 quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getTenDangNhap());
+                quanLyTaiKhoanItem.setTenNguoiDung(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getTenNguoiDung());
                 quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getMatKhau());
                 quanLyTaiKhoanItem.setXacNhanMatKhau(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getXacNhanMatKhau());
                 quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getMatKhauGoc());
@@ -276,8 +333,30 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 quanLyTaiKhoanItem.setNgayTaoBanGhi(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayTaoBanGhi());
                 quanLyTaiKhoanItem.setNgayChinhSua(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayChinhSua());
 
+                // file đính kèm
+                List arrListFileDinhKem = new ArrayList();
+                if(khoThuoc.getFileDinhKem() != null){
+                    String listIdFileDinhKem = khoThuoc.getFileDinhKem();
+                    String[] listId = listIdFileDinhKem.split("/");
+                    for (int i = 0; i <listId.length ; i++) {
+                        Optional<FileDB> fileItem =  fileDBRepository.findById(listId[i]);
+                        if(fileItem.isPresent()){
+                            ResponseFile responseFile = new ResponseFile();
+                            responseFile.setId(fileItem.get().getId());
+                            responseFile.setName(fileItem.get().getName());
+                            responseFile.setSize(fileItem.get().getData().length);
+                            responseFile.setType(fileItem.get().getType());
+                            responseFile.setUrl( ServletUriComponentsBuilder
+                                    .fromCurrentContextPath()
+                                    .path("/files/")
+                                    .path(fileItem.get().getId())
+                                    .toUriString());
+                            arrListFileDinhKem.add(responseFile);
+                        }
+                    }
+                }
 
-
+                khoThuocDTO.setFileDBArrayList(arrListFileDinhKem);
                 khoThuocDTO.setQuanLyNhaCungCap(quanLyNhaCungCapItem);
                 khoThuocDTO.setThongTinNguoiTao(quanLyTaiKhoanItem);
 
@@ -326,7 +405,6 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 khoThuocDTO.setHanSuDungThuoc(khoThuoc.getHanSuDungThuoc());
                 khoThuocDTO.setFlag(khoThuoc.getFlag());
                 khoThuocDTO.setNguoiTaoId(khoThuoc.getNguoiTaoId());
-
                 khoThuocDTO.setFileDinhKem(khoThuoc.getFileDinhKem());
 
                 khoThuocDTO.setTenNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getTenNhaCungCap());
@@ -348,6 +426,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 quanLyTaiKhoanItem.setId(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getId());
                 quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenDangNhap());
                 quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenDangNhap());
+                quanLyTaiKhoanItem.setTenNguoiDung(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenNguoiDung());
                 quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getMatKhau());
                 quanLyTaiKhoanItem.setXacNhanMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getXacNhanMatKhau());
                 quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getMatKhauGoc());
@@ -360,6 +439,30 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
                 quanLyTaiKhoanItem.setNgayTaoBanGhi(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayTaoBanGhi());
                 quanLyTaiKhoanItem.setNgayChinhSua(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayChinhSua());
 
+                // file đính kèm
+                List arrListFileDinhKem = new ArrayList();
+                if(khoThuoc.getFileDinhKem() != null){
+                    String listIdFileDinhKem = khoThuoc.getFileDinhKem();
+                    String[] listId = listIdFileDinhKem.split("/");
+                    for (int i = 0; i <listId.length ; i++) {
+                        Optional<FileDB> fileItem =  fileDBRepository.findById(listId[i]);
+                        if(fileItem.isPresent()){
+                            ResponseFile responseFile = new ResponseFile();
+                            responseFile.setId(fileItem.get().getId());
+                            responseFile.setName(fileItem.get().getName());
+                            responseFile.setSize(fileItem.get().getData().length);
+                            responseFile.setType(fileItem.get().getType());
+                            responseFile.setUrl( ServletUriComponentsBuilder
+                                    .fromCurrentContextPath()
+                                    .path("/files/")
+                                    .path(fileItem.get().getId())
+                                    .toUriString());
+                            arrListFileDinhKem.add(responseFile);
+                        }
+                    }
+                }
+
+                khoThuocDTO.setFileDBArrayList(arrListFileDinhKem);
                 khoThuocDTO.setQuanLyNhaCungCap(quanLyNhaCungCapItem);
                 khoThuocDTO.setThongTinNguoiTao(quanLyTaiKhoanItem);
 

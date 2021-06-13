@@ -1,4 +1,4 @@
-package com.example.quanlyquanthuoc.models.message;
+package com.example.quanlyquanthuoc.models.quanlyfiles;
 
 public class ResponseFile {
   private String id;
@@ -6,13 +6,18 @@ public class ResponseFile {
   private String url;
   private String type;
   private long size;
+  private String path;
 
-  public ResponseFile(String id, String name, String url, String type, long size) {
+  public ResponseFile() {
+  }
+
+  public ResponseFile(String id, String name, String url, String type, long size, String path) {
     this.id = id;
     this.name = name;
     this.url = url;
     this.type = type;
     this.size = size;
+    this.path = path;
   }
 
   public String getName() {
@@ -55,4 +60,11 @@ public class ResponseFile {
     this.size = size;
   }
 
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
 }

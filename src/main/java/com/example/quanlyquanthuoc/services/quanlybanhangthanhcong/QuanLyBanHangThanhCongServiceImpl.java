@@ -50,7 +50,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
     @Override
     public Map<String, Object> create(QuanLyBanHangDTO quanLyBanHangDTO) {
         Map<String, Object> result = new HashMap<>();
-        QuanLyBanHangDTO resultCreate = new QuanLyBanHangDTO();
         try {
             QuanLyBanHangThanhCong quanLyBanHangThanhCong = new QuanLyBanHangThanhCong();
             quanLyBanHangThanhCong.setTenKhachHang(quanLyBanHangDTO.getTenKhachHang());

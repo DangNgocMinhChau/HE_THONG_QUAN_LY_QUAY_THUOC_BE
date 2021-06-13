@@ -27,7 +27,6 @@ public class QuanLyBanHangThanhCongController {
 
     @PostMapping()
     public Map<String, Object> create(@RequestBody QuanLyBanHangDTO quanLyBanHangDTO) {
-        sanPhamRepository.deleteAll();
         return quanLyBanHangThanhCongService.create(quanLyBanHangDTO);
     }
 
