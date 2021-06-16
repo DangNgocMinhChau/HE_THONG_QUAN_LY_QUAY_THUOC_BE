@@ -4,6 +4,7 @@ package com.example.quanlyquanthuoc.services.quanlybanhangthanhcong;
 
 import com.example.quanlyquanthuoc.models.quanlybanhang.QuanLyBanHang;
 import com.example.quanlyquanthuoc.models.quanlybanhang.SanPhamDTO;
+import com.example.quanlyquanthuoc.models.quanlybanhangthanhcong.SanPhamThanhCong;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,5 @@ public interface SanPhamThanhCongService {
     public List<SanPhamDTO> getAllSanPhamById(Long id);
     public List<SanPhamDTO> deleteById(List ids);
 
+    public Map<String,Object>  getAllSanPhamByIdHoaDon(Long id);
 }

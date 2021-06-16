@@ -2,6 +2,7 @@ package com.example.quanlyquanthuoc.controllers.quanlybanhangthanhcong;
 
 import com.example.quanlyquanthuoc.models.quanlybanhang.QuanLyBanHangDTO;
 import com.example.quanlyquanthuoc.models.quanlybanhang.SanPhamDTO;
+import com.example.quanlyquanthuoc.models.quanlybanhangthanhcong.QuanLyBanHangThanhCong;
 import com.example.quanlyquanthuoc.repositorys.quanlybanhang.SanPhamRepository;
 import com.example.quanlyquanthuoc.services.quanlybanhangthanhcong.QuanLyBanHangThanhCongService;
 import com.example.quanlyquanthuoc.services.quanlybanhangthanhcong.SanPhamThanhCongService;
@@ -53,5 +54,10 @@ public class QuanLyBanHangThanhCongController {
     @GetMapping(value="/{id}")
     public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
         return quanLyBanHangThanhCongService.fetchById(id);
+    }
+
+    @GetMapping(value="/getAllHoaDonByKhachHang/{id}")
+    public Map<String,Object> getAllHoaDonByKhachHang(@PathVariable Long id){
+        return quanLyBanHangThanhCongService.findAllHoaDonByIdKhachHang(id);
     }
 }

@@ -2,10 +2,14 @@ package com.example.quanlyquanthuoc.services.quanlybanhangthanhcong;
 
 
 import com.example.quanlyquanthuoc.models.quanlybanhang.QuanLyBanHang;
+import com.example.quanlyquanthuoc.models.quanlybanhang.QuanLyBanHangDTO;
 import com.example.quanlyquanthuoc.models.quanlybanhang.SanPhamDTO;
 import com.example.quanlyquanthuoc.models.quanlybanhangthanhcong.QuanLyBanHangThanhCong;
 import com.example.quanlyquanthuoc.models.quanlybanhangthanhcong.SanPhamThanhCong;
 import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuoc;
+import com.example.quanlyquanthuoc.models.quanlykhothuoc.ThuocDaMuaDTO;
+import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
+import com.example.quanlyquanthuoc.models.quanlythongtinkhachhang.QuanLyThongTinKhachHang;
 import com.example.quanlyquanthuoc.repositorys.quanlybanhangthanhcong.SanPhamThanhCongRepository;
 import com.example.quanlyquanthuoc.services.quanlykhothuoc.QuanLyKhoThuocService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +75,9 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
     @Override
     public Map<String, Object> fetchById(Long id) {
-        return null;
+        Map<String,Object> result = new HashMap<>();
+        result.put("result",sanPhamThanhCongRepository.findById(id).orElse(null));
+        return result;
     }
 
     @Override
@@ -160,6 +166,104 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
         return null;
     }
+
+    @Override
+    public Map<String, Object> getAllSanPhamByIdHoaDon(Long id) {
+        System.out.println("test" + id);
+        Map<String,Object> result = new HashMap<>();
+//        SanPhamThanhCong sanPhamThanhCongList = sanPhamThanhCongRepository.getAllSanPhamByIdHoaDon(id);
+        QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();
+
+//        try {
+//            if (sanPhamThanhCongList != null) {
+//                quanLyBanHangDTO.setId(sanPhamThanhCongList.getId());
+//                quanLyBanHangDTO.setNgayChinhSua(sanPhamThanhCongList.getNgayChinhSua());
+//                quanLyBanHangDTO.setNgayTaoBanGhi(sanPhamThanhCongList.getNgayTaoBanGhi());
+//                quanLyBanHangDTO.setFlag(sanPhamThanhCongList.getFlag());
+//                quanLyBanHangDTO.setTenKhachHang(sanPhamThanhCongList.getTenKhachHang());
+//                quanLyBanHangDTO.setSoDienThoaiKhachHang(sanPhamThanhCongList.getSoDienThoaiKhachHang());
+//                quanLyBanHangDTO.setNguoiTaoId(sanPhamThanhCongList.getNguoiTaoId());
+//                quanLyBanHangDTO.setIdKhachHang(sanPhamThanhCongList.getIdKhachHang());
+//
+//
+//                // Thông tin tài khoản
+//                QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
+//                QuanLyTaiKhoan thongTinNguoiBan = new QuanLyTaiKhoan();
+//                thongTinNguoiBan.setId(thongTinTaiKhoanItem.getId());
+//                thongTinNguoiBan.setTenNguoiDung(thongTinTaiKhoanItem.getTenNguoiDung());
+//                thongTinNguoiBan.setTenDangNhap(thongTinTaiKhoanItem.getTenDangNhap());
+//                thongTinNguoiBan.setMatKhau(thongTinTaiKhoanItem.getMatKhau());
+//                thongTinNguoiBan.setXacNhanMatKhau(thongTinTaiKhoanItem.getXacNhanMatKhau());
+//                thongTinNguoiBan.setMatKhauGoc(thongTinTaiKhoanItem.getMatKhauGoc());
+//                thongTinNguoiBan.setNgaySinh(thongTinTaiKhoanItem.getNgaySinh());
+//                thongTinNguoiBan.setGioiTinh(thongTinTaiKhoanItem.getGioiTinh());
+//                thongTinNguoiBan.setFacebook(thongTinTaiKhoanItem.getFacebook());
+//                thongTinNguoiBan.setSoDienThoai(thongTinTaiKhoanItem.getSoDienThoai());
+//                thongTinNguoiBan.setCmnd(thongTinTaiKhoanItem.getCmnd());
+//                thongTinNguoiBan.setImg(thongTinTaiKhoanItem.getImg());
+//
+//
+//                // Thông tin khách hàng
+//                QuanLyThongTinKhachHang thongTinNguoiMua = new QuanLyThongTinKhachHang();
+//                thongTinNguoiMua.setTenKhachHang(quanLyBanHangThanhCong.getTenKhachHang());
+//                thongTinNguoiMua.setId(quanLyBanHangThanhCong.getIdKhachHang());
+//                thongTinNguoiMua.setSoDienThoai(quanLyBanHangThanhCong.getSoDienThoaiKhachHang());
+//                thongTinNguoiMua.setFlag(quanLyBanHangThanhCong.getFlag());
+//                thongTinNguoiMua.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
+//                thongTinNguoiMua.setNgayChinhSua(quanLyBanHangThanhCong.getNgayChinhSua());
+//
+//                // Sản phẩm
+//                List arr = new ArrayList();
+//                for (int i = 0; i < sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).size(); i++) {
+//                    ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
+//
+//                    thuocDaMuaDTO.setSoLuongMua(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getSoLuongMua());
+//                    KhoThuoc khoThuocItem = quanLyKhoThuocService.findById(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getKhoThuoc().getId());
+//                    thuocDaMuaDTO.setTenThuoc(khoThuocItem.getTenThuoc());
+//                    thuocDaMuaDTO.setId(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getId());
+//                    thuocDaMuaDTO.setDonViTinh(khoThuocItem.getDonViTinh());
+//                    thuocDaMuaDTO.setTongTienTruocThue(khoThuocItem.getTongTienTruocThue());
+//                    thuocDaMuaDTO.setPhanTramThue(khoThuocItem.getPhanTramThue());
+//                    thuocDaMuaDTO.setChietKhau(khoThuocItem.getChietKhau());
+//                    thuocDaMuaDTO.setGiaTien(khoThuocItem.getGiaTien());
+//                    thuocDaMuaDTO.setThanhToan(khoThuocItem.getThanhToan());
+//                    thuocDaMuaDTO.setSoLuongNhap(khoThuocItem.getSoLuongNhap());
+//                    thuocDaMuaDTO.setSoLuongDaBan(khoThuocItem.getSoLuongDaBan());
+//                    thuocDaMuaDTO.setFlag(khoThuocItem.getFlag());
+//                    thuocDaMuaDTO.setNgayChinhSua(khoThuocItem.getNgayChinhSua());
+//                    thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
+//                    thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
+//                    thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
+//                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
+//                    thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
+//                    thuocDaMuaDTO.setMa(khoThuocItem.getMa());
+//                    thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
+//                    thuocDaMuaDTO.setSoLuongMuaBanDau(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangDTO.getId()).get(i).getSoLuongMua());
+//                    thuocDaMuaDTO.setNhaCungCapId(khoThuocItem.getQuanLyNhaCungCap().getId());
+//                    thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
+//                    arr.add(thuocDaMuaDTO);
+//                }
+//
+//                quanLyBanHangDTO.setThongTinNguoiBan(thongTinNguoiBan);
+//                quanLyBanHangDTO.setSanPham(arr);
+//                quanLyBanHangDTO.setThongTinNguoiMua(thongTinNguoiMua);
+//
+//
+//                result.put("result", quanLyBanHangDTO);
+//                result.put("status", true);
+//            } else {
+//                result.put("result", null);
+//                result.put("status", false);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            result.put("result", null);
+//            result.put("status", false);
+//        }
+
+        return result;
+    }
+
 
     private SanPhamDTO toDto(SanPhamThanhCong sanPhamThanhCong){
         SanPhamDTO sanPhamDTO = new SanPhamDTO();

@@ -16,5 +16,5 @@ public interface QuanLyBanHangThanhCongService {
     public Map<String,Object> delete(Long[] listIds);
     QuanLyBanHangThanhCong findById(Long id);
     public List<SanPhamThanhCong> getAllSanPhamById(Long id);
-
+    public Map<String,Object> findAllHoaDonByIdKhachHang(Long idKhachHang);
 }

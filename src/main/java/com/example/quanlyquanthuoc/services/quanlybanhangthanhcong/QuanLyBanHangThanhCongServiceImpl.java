@@ -433,4 +433,20 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
         List<SanPhamThanhCong> sanPhamThanhCong = sanPhamThanhCongRepository.findBySanPhamThanhCong(id);
         return sanPhamThanhCong;
     }
+
+    @Override
+    public Map<String,Object> findAllHoaDonByIdKhachHang(Long idKhachHang) {
+        Map<String, Object> result = new HashMap<>();
+            List listHoaDonThanhCongByKhachHang = quanLyBanHangThanhCongRepository.findAllHoaDonByIdKhachHang(idKhachHang);
+        System.out.println(listHoaDonThanhCongByKhachHang);
+        List arrHoaDon = new ArrayList();
+
+        for (int i = 0; i < listHoaDonThanhCongByKhachHang.size(); i++) {
+            arrHoaDon.add(fetchById((Long) listHoaDonThanhCongByKhachHang.get(i)));
+        }
+        result.put("result",arrHoaDon);
+
+        return result;
+    }
+
 }

@@ -212,7 +212,7 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
 
                 // file đính kèm
                 List arrListFileDinhKem = new ArrayList();
-                if(khoThuocDTO.getFileDinhKem() != null){
+                if(!khoThuocDTO.getFileDinhKem().isEmpty()){
                     String listIdFileDinhKem = khoThuocDTO.getFileDinhKem();
                     String[] listId = listIdFileDinhKem.split("/");
                     for (int i = 0; i <listId.length ; i++) {
