@@ -12,6 +12,7 @@ public class QuanLyBanHangThanhCong {
     private String sanPham;
     private String tenKhachHang;
     private String soDienThoaiKhachHang;
+    private Double tienNhan;
     private Long nguoiTaoId;
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
@@ -102,5 +103,13 @@ public class QuanLyBanHangThanhCong {
 
     public void setIdKhachHang(Long idKhachHang) {
         this.idKhachHang = idKhachHang;
+    }
+
+    public Double getTienNhan() {
+        return tienNhan;
+    }
+
+    public void setTienNhan(Double tienNhan) {
+        this.tienNhan = tienNhan;
     }
 }

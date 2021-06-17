@@ -59,7 +59,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             quanLyBanHangThanhCong.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
             quanLyBanHangThanhCong.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
             quanLyBanHangThanhCong.setNguoiTaoId(quanLyBanHangDTO.getNguoiTaoId());
-
+            quanLyBanHangThanhCong.setTienNhan(quanLyBanHangDTO.getTienNhan());
             quanLyBanHangThanhCongRepository.save(quanLyBanHangThanhCong);
 
 
@@ -111,7 +111,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             object.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
             object.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
             object.setNguoiTaoId(quanLyBanHangDTO.getNguoiTaoId());
-
+            object.setTienNhan(quanLyBanHangDTO.getTienNhan());
             quanLyBanHangThanhCongRepository.save(object);
 
 
@@ -123,6 +123,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             resultUpdate.setSoDienThoaiKhachHang(quanLyBanHangDTO.getSoDienThoaiKhachHang());
             resultUpdate.setNguoiTaoId(quanLyBanHangDTO.getNguoiTaoId());
             resultUpdate.setIdKhachHang(quanLyBanHangDTO.getIdKhachHang());
+            resultUpdate.setTienNhan(quanLyBanHangDTO.getTienNhan());
 
             ObjectMapper mapper = new ObjectMapper();
             SanPhamDTO sanPhamDTO = new SanPhamDTO();
@@ -246,7 +247,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 quanLyBanHangDTO.setSoDienThoaiKhachHang(quanLyBanHangThanhCong.getSoDienThoaiKhachHang());
                 quanLyBanHangDTO.setNguoiTaoId(quanLyBanHangThanhCong.getNguoiTaoId());
                 quanLyBanHangDTO.setIdKhachHang(quanLyBanHangThanhCong.getIdKhachHang());
-
+                quanLyBanHangDTO.setTienNhan(quanLyBanHangThanhCong.getTienNhan());
 
                 // Thông tin tài khoản
                 QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
@@ -342,7 +343,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
 
                 quanLyBanHangDTO.setNgayChinhSua(quanLyBanHangThanhCong.getNgayChinhSua());
                 quanLyBanHangDTO.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
-
+                quanLyBanHangDTO.setTienNhan(quanLyBanHangThanhCong.getTienNhan());
                 // Thông tin tài khoản
                 QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
                 QuanLyTaiKhoan thongTinNguoiBan = new QuanLyTaiKhoan();

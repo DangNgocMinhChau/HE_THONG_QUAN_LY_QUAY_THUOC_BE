@@ -20,6 +20,7 @@ public class QuanLyBanHangDTO {
     private QuanLyThongTinKhachHang thongTinNguoiMua;
     private QuanLyTaiKhoan thongTinNguoiBan;
     private Double totalTien;
+    private Double tienNhan;
     public QuanLyBanHangDTO() {
     }
 
@@ -134,5 +135,13 @@ public class QuanLyBanHangDTO {
 
     public void setTotalTien(Double totalTien) {
         this.totalTien = totalTien;
+    }
+
+    public Double getTienNhan() {
+        return tienNhan;
+    }
+
+    public void setTienNhan(Double tienNhan) {
+        this.tienNhan = tienNhan;
     }
 }
