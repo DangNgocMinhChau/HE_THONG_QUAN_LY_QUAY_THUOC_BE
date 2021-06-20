@@ -25,10 +25,22 @@ public class QuanLyKhoThuocController {
         return quanLyKhoThuocService.getAll();
     }
 
+    @GetMapping("/thungrackhothuoc")
+    public Map<String,Object> getAllThungRacKhoThuoc () {
+        return quanLyKhoThuocService.getAllThungRacKhoThuoc();
+    }
+
+
+    @DeleteMapping("/xoavinhvien")
+    public Map<String,Object> deleteVinhvienKhoThuoc (@RequestBody Long[] ids) {
+        return quanLyKhoThuocService.deleteVinhVien(ids);
+    }
+
     @DeleteMapping()
     public Map<String,Object> delete (@RequestBody Long[] ids) {
         return quanLyKhoThuocService.delete(ids);
     }
+
 
     @PutMapping(value="/{id}")
     public Map<String,Object> update (@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {

@@ -12,6 +12,8 @@ public interface QuanLyKhoThuocService {
     public Map<String,Object> update(Long id, KhoThuocDTO khoThuocDTO);
     public Map<String,Object> fetchById(Long id);
     public Map<String,Object> getAll();
+    public Map<String,Object> getAllThungRacKhoThuoc();
     public Map<String,Object> delete(Long[] listIds);
+    public Map<String,Object> deleteVinhVien(Long[] listIds);
     KhoThuoc findById(Long id);
 }
