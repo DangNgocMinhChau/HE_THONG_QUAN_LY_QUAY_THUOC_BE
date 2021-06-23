@@ -12,6 +12,7 @@ import java.util.Map;
 public interface SanPhamThanhCongService {
     public Map<String,Object> create(SanPhamDTO sanPhamDTO);
     public Map<String,Object> update(Long id, SanPhamDTO sanPhamDTO);
+    public Map<String,Object> updateSanPhamTrongHoaDon(Long id, SanPhamDTO sanPhamDTO);
     public Map<String,Object> fetchById(Long id);
     public Map<String,Object> getAll();
     public Map<String,Object> delete(Long[] listIds);

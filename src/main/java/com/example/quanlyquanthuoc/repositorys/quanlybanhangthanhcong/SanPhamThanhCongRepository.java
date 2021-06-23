@@ -28,4 +28,8 @@ public interface SanPhamThanhCongRepository extends JpaRepository<SanPhamThanhCo
     SanPhamThanhCong getAllSanPhamByIdHoaDon(Long quanlybanhangthanhcong_id);
 
 
+    @Query(value = "select sum(so_luong_mua) from san_pham_thanh_cong s where s.khothuoc_id = ?1", nativeQuery = true)
+    Long total(Long khothuoc_id);
+
+
 }

@@ -7,6 +7,7 @@ import com.example.quanlyquanthuoc.repositorys.quanlybanhang.SanPhamRepository;
 import com.example.quanlyquanthuoc.services.quanlybanhangthanhcong.QuanLyBanHangThanhCongService;
 import com.example.quanlyquanthuoc.services.quanlybanhangthanhcong.SanPhamThanhCongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,5 +60,10 @@ public class QuanLyBanHangThanhCongController {
     @GetMapping(value="/getAllHoaDonByKhachHang/{id}")
     public Map<String,Object> getAllHoaDonByKhachHang(@PathVariable Long id){
         return quanLyBanHangThanhCongService.findAllHoaDonByIdKhachHang(id);
+    }
+
+    @GetMapping(value="/getAllHoaDonByDate")
+    public Map<String,Object> getAllHoaDonByDate(@RequestParam String date){
+        return quanLyBanHangThanhCongService.getAllHoaDonByDate(date);
     }
 }

@@ -10,7 +10,9 @@ import java.util.Map;
 public interface QuanLyKhoThuocService {
     public Map<String,Object> create(KhoThuocDTO khoThuocDTO);
     public Map<String,Object> update(Long id, KhoThuocDTO khoThuocDTO);
+    public Map<String,Object> updateLaiKhoThuocKhiEditHoadon(Long id, KhoThuocDTO khoThuocDTO);
     public Map<String,Object> fetchById(Long id);
+    public Map<String,Object> updateKhoThuoc();
     public Map<String,Object> getAll();
     public Map<String,Object> getAllThungRacKhoThuoc();
     public Map<String,Object> delete(Long[] listIds);

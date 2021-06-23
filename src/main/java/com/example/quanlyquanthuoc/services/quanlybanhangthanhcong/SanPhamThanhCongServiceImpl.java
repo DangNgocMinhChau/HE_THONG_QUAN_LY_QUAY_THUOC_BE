@@ -11,6 +11,7 @@ import com.example.quanlyquanthuoc.models.quanlykhothuoc.ThuocDaMuaDTO;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
 import com.example.quanlyquanthuoc.models.quanlythongtinkhachhang.QuanLyThongTinKhachHang;
 import com.example.quanlyquanthuoc.repositorys.quanlybanhangthanhcong.SanPhamThanhCongRepository;
+import com.example.quanlyquanthuoc.repositorys.quanlykhothuoc.QuanLyKhoThuocRepository;
 import com.example.quanlyquanthuoc.services.quanlykhothuoc.QuanLyKhoThuocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,16 +32,17 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
     QuanLyKhoThuocService quanLyKhoThuocService;
 
     @Autowired
+    QuanLyKhoThuocRepository quanLyKhoThuocRepository;
+
+    @Autowired
     QuanLyBanHangThanhCongService quanLyBanHangThanhCongService;
 
     @Override
     public Map<String, Object> create(SanPhamDTO sanPhamDTO) {
-        System.out.println(sanPhamDTO);
-        Map<String,Object> result = new HashMap<>();
-        SanPhamDTO resultCreate = new SanPhamDTO();
+        Map<String, Object> result = new HashMap<>();
         try {
             SanPhamThanhCong sanPhamThanhCong = new SanPhamThanhCong();
-            sanPhamThanhCong.setKhoThuoc(quanLyKhoThuocService.findById( sanPhamDTO.getKhoThuocId()));
+            sanPhamThanhCong.setKhoThuoc(quanLyKhoThuocService.findById(sanPhamDTO.getKhoThuocId()));
             sanPhamThanhCong.setQuanLyBanHangThanhCong(quanLyBanHangThanhCongService.findById(sanPhamDTO.getQuanLyBanHangId()));
             sanPhamThanhCong.setFlag(sanPhamDTO.getFlag());
             sanPhamThanhCong.setNgayChinhSua(sanPhamDTO.getNgayChinhSua());
@@ -48,7 +50,11 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
             sanPhamThanhCong.setSoLuongMua(sanPhamDTO.getSoLuongMua());
 
             sanPhamThanhCongRepository.save(sanPhamThanhCong);
-        }catch (Exception e){
+
+            quanLyKhoThuocService.updateKhoThuoc();
+
+
+        } catch (Exception e) {
 
         }
         return result;
@@ -56,37 +62,57 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
     @Override
     public Map<String, Object> update(Long id, SanPhamDTO sanPhamDTO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         SanPhamDTO resultCreate = new SanPhamDTO();
+
         try {
             SanPhamThanhCong object = sanPhamThanhCongRepository.findById(id).get();
-            object.setKhoThuoc(quanLyKhoThuocService.findById( sanPhamDTO.getKhoThuocId()));
+            object.setKhoThuoc(quanLyKhoThuocService.findById(sanPhamDTO.getKhoThuocId()));
             object.setQuanLyBanHangThanhCong(quanLyBanHangThanhCongService.findById(sanPhamDTO.getQuanLyBanHangId()));
             object.setFlag(sanPhamDTO.getFlag());
             object.setNgayChinhSua(sanPhamDTO.getNgayChinhSua());
             object.setNgayTaoBanGhi(sanPhamDTO.getNgayTaoBanGhi());
             object.setSoLuongMua(sanPhamDTO.getSoLuongMua());
             sanPhamThanhCongRepository.save(object);
-        }catch (Exception e){
+
+            quanLyKhoThuocService.updateKhoThuoc();
+
+        } catch (Exception e) {
 
         }
         return result;
     }
 
     @Override
+    public Map<String, Object> updateSanPhamTrongHoaDon(Long id, SanPhamDTO sanPhamDTO) {
+        quanLyKhoThuocService.updateKhoThuoc();
+        SanPhamThanhCong itemSanPhamThanhcong = sanPhamThanhCongRepository.findById(sanPhamDTO.getId()).orElse(null);
+        itemSanPhamThanhcong.setSoLuongMua(sanPhamDTO.getSoLuongMua());
+        sanPhamThanhCongRepository.save(itemSanPhamThanhcong);
+        quanLyKhoThuocService.updateKhoThuoc();
+
+        return null;
+    }
+
+
+    @Override
     public Map<String, Object> fetchById(Long id) {
-        Map<String,Object> result = new HashMap<>();
-        result.put("result",sanPhamThanhCongRepository.findById(id).orElse(null));
+        quanLyKhoThuocService.updateKhoThuoc();
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", sanPhamThanhCongRepository.findById(id).orElse(null));
         return result;
     }
 
     @Override
     public Map<String, Object> getAll() {
-        Map<String,Object> result = new HashMap<>();
+        quanLyKhoThuocService.updateKhoThuoc();
+
+        Map<String, Object> result = new HashMap<>();
         try {
             List<SanPhamThanhCong> sanPhamThanhCongList = sanPhamThanhCongRepository.findAll();
             List<SanPhamDTO> sanPhamDTOS = new ArrayList<>();
-            for (SanPhamThanhCong sanPhamThanhCong: sanPhamThanhCongList) {
+            for (SanPhamThanhCong sanPhamThanhCong : sanPhamThanhCongList) {
 
                 SanPhamDTO sanPhamDTO = new SanPhamDTO();
                 sanPhamDTO.setId(sanPhamThanhCong.getId());
@@ -133,10 +159,10 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
                 sanPhamDTOS.add(sanPhamDTO);
             }
             result.put("result", sanPhamDTOS);
-            result.put("status",true);
-        }catch (Exception e){
+            result.put("status", true);
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
-            result.put("status",false);
+            result.put("status", false);
         }
         return result;
     }
@@ -148,7 +174,14 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
     @Override
     public void deleteById(Long id) {
+        SanPhamThanhCong sanPhamThanhCong = sanPhamThanhCongRepository.findById(id).orElse(null);
+        KhoThuoc khoThuoc = quanLyKhoThuocRepository.findById(sanPhamThanhCong.getKhoThuoc().getId()).orElse(null);
+        khoThuoc.setSoLuongDaBan(khoThuoc.getSoLuongDaBan() - sanPhamThanhCong.getSoLuongMua());
+        khoThuoc.setSoLuongMua(khoThuoc.getSoLuongMua() - sanPhamThanhCong.getSoLuongMua());
+        quanLyKhoThuocRepository.save(khoThuoc);
         sanPhamThanhCongRepository.deleteById(id);
+        quanLyKhoThuocService.updateKhoThuoc();
+
     }
 
     @Override
@@ -158,6 +191,8 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
     @Override
     public List<SanPhamDTO> getAllSanPhamById(Long id) {
+        quanLyKhoThuocService.updateKhoThuoc();
+
         return sanPhamThanhCongRepository.findBySanPhamThanhCong(id).stream().map(this::toDto).collect(Collectors.toList());
     }
 
@@ -170,7 +205,7 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
     @Override
     public Map<String, Object> getAllSanPhamByIdHoaDon(Long id) {
         System.out.println("test" + id);
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 //        SanPhamThanhCong sanPhamThanhCongList = sanPhamThanhCongRepository.getAllSanPhamByIdHoaDon(id);
         QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();
 
@@ -265,7 +300,7 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
     }
 
 
-    private SanPhamDTO toDto(SanPhamThanhCong sanPhamThanhCong){
+    private SanPhamDTO toDto(SanPhamThanhCong sanPhamThanhCong) {
         SanPhamDTO sanPhamDTO = new SanPhamDTO();
         sanPhamDTO.setId(sanPhamThanhCong.getId());
         sanPhamDTO.setSoLuongMua(sanPhamThanhCong.getSoLuongMua());

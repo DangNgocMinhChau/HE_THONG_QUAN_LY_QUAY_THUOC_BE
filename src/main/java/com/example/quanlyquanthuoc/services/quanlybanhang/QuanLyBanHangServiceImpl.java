@@ -75,7 +75,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String idThuoc = jsonObject.get("idThuoc").toString();
                 String soLuongMua = jsonObject.get("soLuongMua").toString();
-                System.out.println(quanLyBanHang.getId());
                 sanPhamDTO.setKhoThuocId(Long.parseLong( idThuoc));
                 sanPhamDTO.setSoLuongMua(Long.parseLong( soLuongMua));
                 sanPhamDTO.setQuanLyBanHangId(quanLyBanHang.getId());
@@ -210,7 +209,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                     sanPhamService.update(Long.parseLong( idSanPham),sanPhamDTO);
 
                 }else {
-                    System.out.println("qua ko");
                     sanPhamDTO.setKhoThuocId(Long.parseLong( idThuoc));
                     sanPhamDTO.setSoLuongMua(Long.parseLong( soLuongMua));
                     sanPhamDTO.setQuanLyBanHangId(object.getId());

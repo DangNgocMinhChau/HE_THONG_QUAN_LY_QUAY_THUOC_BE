@@ -55,4 +55,11 @@ public class SanPhamThanhCongController {
     public  Map<String,Object> getAllHoaDonByKhachHang(@PathVariable Long id){
         return sanPhamThanhCongService.getAllSanPhamByIdHoaDon(id);
     }
+
+    @PutMapping(value="/updatesanphamtronghoadon/{id}")
+    public Map<String,Object> updateSanPhamTrongHoaDon (@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
+        return sanPhamThanhCongService.updateSanPhamTrongHoaDon(id,sanPhamDTO);
+    }
+
+
 }

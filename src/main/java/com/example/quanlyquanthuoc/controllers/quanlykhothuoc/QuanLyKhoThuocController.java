@@ -47,8 +47,18 @@ public class QuanLyKhoThuocController {
         return quanLyKhoThuocService.update(id,khoThuocDTO);
     }
 
+    @PutMapping(value="/capnhatlaikhothuockhiedithoadon/{id}")
+    public Map<String,Object> updateLaiKhoThuocKhiEditHoadon (@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {
+        return quanLyKhoThuocService.updateLaiKhoThuocKhiEditHoadon(id,khoThuocDTO);
+    }
+
     @GetMapping(value="/{id}")
     public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
         return quanLyKhoThuocService.fetchById(id);
+    }
+
+    @GetMapping(value = "/updatekhothuoc")
+    public Map<String,Object> updateKhoThuoc(){
+        return quanLyKhoThuocService.updateKhoThuoc();
     }
 }
