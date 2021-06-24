@@ -17,6 +17,9 @@ public class QuanLyBanHangThanhCong {
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
+    private Boolean checkEdit;
+    private String noiDungChinhSua;
+    private Long idHoaDonDuocSua;
 
 
     @OneToMany(mappedBy = "quanLyBanHangThanhCong")
@@ -111,5 +114,29 @@ public class QuanLyBanHangThanhCong {
 
     public void setTienNhan(Double tienNhan) {
         this.tienNhan = tienNhan;
+    }
+
+    public Boolean getCheckEdit() {
+        return checkEdit;
+    }
+
+    public void setCheckEdit(Boolean checkEdit) {
+        this.checkEdit = checkEdit;
+    }
+
+    public String getNoiDungChinhSua() {
+        return noiDungChinhSua;
+    }
+
+    public void setNoiDungChinhSua(String noiDungChinhSua) {
+        this.noiDungChinhSua = noiDungChinhSua;
+    }
+
+    public Long getIdHoaDonDuocSua() {
+        return idHoaDonDuocSua;
+    }
+
+    public void setIdHoaDonDuocSua(Long idHoaDonDuocSua) {
+        this.idHoaDonDuocSua = idHoaDonDuocSua;
     }
 }

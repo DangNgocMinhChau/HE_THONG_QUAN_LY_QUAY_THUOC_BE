@@ -21,6 +21,11 @@ public class QuanLyBanHangDTO {
     private QuanLyTaiKhoan thongTinNguoiBan;
     private Double totalTien;
     private Double tienNhan;
+    private Boolean checkEdit;
+    private String noiDungChinhSua;
+    private Long idHoaDonDuocSua;
+    private Integer tongCongLichSuHoaDon;
+
     public QuanLyBanHangDTO() {
     }
 
@@ -143,5 +148,37 @@ public class QuanLyBanHangDTO {
 
     public void setTienNhan(Double tienNhan) {
         this.tienNhan = tienNhan;
+    }
+
+    public Boolean getCheckEdit() {
+        return checkEdit;
+    }
+
+    public void setCheckEdit(Boolean checkEdit) {
+        this.checkEdit = checkEdit;
+    }
+
+    public String getNoiDungChinhSua() {
+        return noiDungChinhSua;
+    }
+
+    public void setNoiDungChinhSua(String noiDungChinhSua) {
+        this.noiDungChinhSua = noiDungChinhSua;
+    }
+
+    public Long getIdHoaDonDuocSua() {
+        return idHoaDonDuocSua;
+    }
+
+    public void setIdHoaDonDuocSua(Long idHoaDonDuocSua) {
+        this.idHoaDonDuocSua = idHoaDonDuocSua;
+    }
+
+    public Integer getTongCongLichSuHoaDon() {
+        return tongCongLichSuHoaDon;
+    }
+
+    public void setTongCongLichSuHoaDon(Integer tongCongLichSuHoaDon) {
+        this.tongCongLichSuHoaDon = tongCongLichSuHoaDon;
     }
 }

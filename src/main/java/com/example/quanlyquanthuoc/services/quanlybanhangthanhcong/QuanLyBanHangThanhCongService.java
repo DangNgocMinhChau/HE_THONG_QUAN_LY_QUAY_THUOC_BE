@@ -18,5 +18,6 @@ public interface QuanLyBanHangThanhCongService {
     public List<SanPhamThanhCong> getAllSanPhamById(Long id);
     public Map<String,Object> findAllHoaDonByIdKhachHang(Long idKhachHang);
     public Map<String,Object> getAllHoaDonByDate(String date);
+    public Map<String,Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(Long idHoaDon);
 
 }

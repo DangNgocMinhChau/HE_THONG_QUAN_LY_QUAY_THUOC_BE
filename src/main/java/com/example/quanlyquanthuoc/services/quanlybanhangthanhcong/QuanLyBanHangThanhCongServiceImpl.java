@@ -67,6 +67,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             quanLyBanHangThanhCong.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
             quanLyBanHangThanhCong.setNguoiTaoId(quanLyBanHangDTO.getNguoiTaoId());
             quanLyBanHangThanhCong.setTienNhan(quanLyBanHangDTO.getTienNhan());
+            quanLyBanHangThanhCong.setCheckEdit(false);
             quanLyBanHangThanhCongRepository.save(quanLyBanHangThanhCong);
 
 
@@ -113,10 +114,25 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
         Map<String, Object> result = new HashMap<>();
         QuanLyBanHangDTO resultUpdate = new QuanLyBanHangDTO();
         try {
+            QuanLyBanHangThanhCong quanLyBanHangThanhCong = new QuanLyBanHangThanhCong();
             QuanLyBanHangThanhCong object = quanLyBanHangThanhCongRepository.findById(id).get();
             object.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
+
+            quanLyBanHangThanhCong.setTenKhachHang(quanLyBanHangDTO.getTenKhachHang());
+            quanLyBanHangThanhCong.setSoDienThoaiKhachHang(object.getSoDienThoaiKhachHang());
+            quanLyBanHangThanhCong.setIdKhachHang(object.getIdKhachHang());
+            quanLyBanHangThanhCong.setTenKhachHang(object.getTenKhachHang());
+            quanLyBanHangThanhCong.setFlag(true);
+            quanLyBanHangThanhCong.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
+            quanLyBanHangThanhCong.setNguoiTaoId(object.getNguoiTaoId());
+            quanLyBanHangThanhCong.setTienNhan(object.getTienNhan());
+            quanLyBanHangThanhCong.setNoiDungChinhSua(quanLyBanHangDTO.getNoiDungChinhSua());
+            quanLyBanHangThanhCong.setIdHoaDonDuocSua(id);
+            quanLyBanHangThanhCong.setCheckEdit(true);
+            quanLyBanHangThanhCongRepository.save(quanLyBanHangThanhCong);
             quanLyBanHangThanhCongRepository.save(object);
 
+            Integer tongCongLichSuHoaDon = quanLyBanHangThanhCongRepository.sumLichSuHoaDon(id);
             resultUpdate.setId(quanLyBanHangDTO.getId());
             resultUpdate.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
             resultUpdate.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
@@ -219,7 +235,8 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             resultUpdate.setThongTinNguoiBan(thongTinNguoiBan);
             resultUpdate.setSanPham(arr);
             resultUpdate.setThongTinNguoiMua(thongTinNguoiMua);
-
+            resultUpdate.setTongCongLichSuHoaDon(tongCongLichSuHoaDon);
+            
             result.put("result", resultUpdate);
             result.put("msg", "sửa thành công");
             result.put("status", true);
@@ -454,6 +471,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
     @Override
     public Map<String, Object> getAllHoaDonByDate(String date) {
         Map<String, Object> result = new HashMap<>();
+
         try {
             List<QuanLyBanHangThanhCong> quanLyBanHangThanhCongList = quanLyBanHangThanhCongRepository.findAllHoaDonByTheoDate(date);
             List<QuanLyBanHangDTO> quanLyBanHangDTOS = new ArrayList<>();
@@ -469,6 +487,101 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 quanLyBanHangDTO.setNgayChinhSua(quanLyBanHangThanhCong.getNgayChinhSua());
                 quanLyBanHangDTO.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
                 quanLyBanHangDTO.setTienNhan(quanLyBanHangThanhCong.getTienNhan());
+
+                Integer tongCongLichSuHoaDon  = quanLyBanHangThanhCongRepository.sumLichSuHoaDon(quanLyBanHangThanhCong.getId());
+                // Thông tin tài khoản
+                QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
+                QuanLyTaiKhoan thongTinNguoiBan = new QuanLyTaiKhoan();
+                thongTinNguoiBan.setId(thongTinTaiKhoanItem.getId());
+                thongTinNguoiBan.setTenNguoiDung(thongTinTaiKhoanItem.getTenNguoiDung());
+                thongTinNguoiBan.setTenDangNhap(thongTinTaiKhoanItem.getTenDangNhap());
+                thongTinNguoiBan.setMatKhau(thongTinTaiKhoanItem.getMatKhau());
+                thongTinNguoiBan.setXacNhanMatKhau(thongTinTaiKhoanItem.getXacNhanMatKhau());
+                thongTinNguoiBan.setMatKhauGoc(thongTinTaiKhoanItem.getMatKhauGoc());
+                thongTinNguoiBan.setNgaySinh(thongTinTaiKhoanItem.getNgaySinh());
+                thongTinNguoiBan.setGioiTinh(thongTinTaiKhoanItem.getGioiTinh());
+                thongTinNguoiBan.setFacebook(thongTinTaiKhoanItem.getFacebook());
+                thongTinNguoiBan.setSoDienThoai(thongTinTaiKhoanItem.getSoDienThoai());
+                thongTinNguoiBan.setCmnd(thongTinTaiKhoanItem.getCmnd());
+                thongTinNguoiBan.setImg(thongTinTaiKhoanItem.getImg());
+
+
+                // Thông tin khách hàng
+                QuanLyThongTinKhachHang thongTinNguoiMua = new QuanLyThongTinKhachHang();
+                thongTinNguoiMua.setTenKhachHang(quanLyBanHangThanhCong.getTenKhachHang());
+                thongTinNguoiMua.setId(quanLyBanHangThanhCong.getIdKhachHang());
+                thongTinNguoiMua.setSoDienThoai(quanLyBanHangThanhCong.getSoDienThoaiKhachHang());
+                thongTinNguoiMua.setFlag(quanLyBanHangThanhCong.getFlag());
+                thongTinNguoiMua.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
+                thongTinNguoiMua.setNgayChinhSua(quanLyBanHangThanhCong.getNgayChinhSua());
+
+                // Sản phẩm
+                List arr = new ArrayList();
+                Double totalTien = 0.0;
+                for (int i = 0; i < sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).size(); i++) {
+                    ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
+
+                    thuocDaMuaDTO.setSoLuongMua(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getSoLuongMua());
+                    KhoThuoc khoThuocItem = quanLyKhoThuocService.findById(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getKhoThuoc().getId());
+                    thuocDaMuaDTO.setTenThuoc(khoThuocItem.getTenThuoc());
+                    thuocDaMuaDTO.setId(sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getId());
+                    thuocDaMuaDTO.setDonViTinh(khoThuocItem.getDonViTinh());
+                    thuocDaMuaDTO.setTongTienTruocThue(khoThuocItem.getTongTienTruocThue());
+                    thuocDaMuaDTO.setPhanTramThue(khoThuocItem.getPhanTramThue());
+                    thuocDaMuaDTO.setChietKhau(khoThuocItem.getChietKhau());
+                    thuocDaMuaDTO.setGiaTien(khoThuocItem.getGiaTien());
+                    thuocDaMuaDTO.setThanhToan(khoThuocItem.getThanhToan());
+                    thuocDaMuaDTO.setSoLuongNhap(khoThuocItem.getSoLuongNhap());
+                    thuocDaMuaDTO.setSoLuongDaBan(khoThuocItem.getSoLuongDaBan());
+                    thuocDaMuaDTO.setFlag(khoThuocItem.getFlag());
+                    thuocDaMuaDTO.setNgayChinhSua(khoThuocItem.getNgayChinhSua());
+                    thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
+                    thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
+                    thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
+                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
+                    thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
+                    thuocDaMuaDTO.setMa(khoThuocItem.getMa());
+                    thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
+                    totalTien += (sanPhamThanhCongRepository.findBySanPhamThanhCong(quanLyBanHangThanhCong.getId()).get(i).getSoLuongMua() * khoThuocItem.getGiaTien());
+                    arr.add(thuocDaMuaDTO);
+                }
+                quanLyBanHangDTO.setTotalTien(totalTien);
+                quanLyBanHangDTO.setThongTinNguoiBan(thongTinNguoiBan);
+                quanLyBanHangDTO.setSanPham(arr);
+                quanLyBanHangDTO.setThongTinNguoiMua(thongTinNguoiMua);
+                quanLyBanHangDTO.setTongCongLichSuHoaDon(tongCongLichSuHoaDon);
+                quanLyBanHangDTOS.add(quanLyBanHangDTO);
+            }
+            result.put("result", quanLyBanHangDTOS);
+
+
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Lay danh sach  that bai");
+            result.put("status", false);
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(Long idHoaDon) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            List<QuanLyBanHangThanhCong> quanLyBanHangThanhCongList = quanLyBanHangThanhCongRepository.findAllLichSuChinhSuaHoaDonTheoIdHoaDon(idHoaDon);
+            List<QuanLyBanHangDTO> quanLyBanHangDTOS = new ArrayList<>();
+
+            for (QuanLyBanHangThanhCong quanLyBanHangThanhCong : quanLyBanHangThanhCongList) {
+                QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();
+                quanLyBanHangDTO.setId(quanLyBanHangThanhCong.getId());
+                quanLyBanHangDTO.setFlag(quanLyBanHangThanhCong.getFlag());
+                quanLyBanHangDTO.setSoDienThoaiKhachHang(quanLyBanHangThanhCong.getSoDienThoaiKhachHang());
+                quanLyBanHangDTO.setTenKhachHang(quanLyBanHangThanhCong.getTenKhachHang());
+                quanLyBanHangDTO.setNguoiTaoId(quanLyBanHangThanhCong.getNguoiTaoId());
+
+                quanLyBanHangDTO.setNgayChinhSua(quanLyBanHangThanhCong.getNgayChinhSua());
+                quanLyBanHangDTO.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
+                quanLyBanHangDTO.setTienNhan(quanLyBanHangThanhCong.getTienNhan());
+                quanLyBanHangDTO.setNoiDungChinhSua(quanLyBanHangThanhCong.getNoiDungChinhSua());
                 // Thông tin tài khoản
                 QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
                 QuanLyTaiKhoan thongTinNguoiBan = new QuanLyTaiKhoan();
