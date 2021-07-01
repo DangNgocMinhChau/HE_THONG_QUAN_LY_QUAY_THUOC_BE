@@ -204,7 +204,6 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
     @Override
     public Map<String, Object> getAllSanPhamByIdHoaDon(Long id) {
-        System.out.println("test" + id);
         Map<String, Object> result = new HashMap<>();
 //        SanPhamThanhCong sanPhamThanhCongList = sanPhamThanhCongRepository.getAllSanPhamByIdHoaDon(id);
         QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();

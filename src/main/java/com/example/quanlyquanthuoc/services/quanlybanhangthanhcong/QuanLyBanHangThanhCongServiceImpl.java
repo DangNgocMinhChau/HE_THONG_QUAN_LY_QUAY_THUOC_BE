@@ -123,8 +123,8 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             quanLyBanHangThanhCong.setIdKhachHang(object.getIdKhachHang());
             quanLyBanHangThanhCong.setTenKhachHang(object.getTenKhachHang());
             quanLyBanHangThanhCong.setFlag(true);
-            quanLyBanHangThanhCong.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
-            quanLyBanHangThanhCong.setNguoiTaoId(object.getNguoiTaoId());
+            quanLyBanHangThanhCong.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayChinhSua());
+            quanLyBanHangThanhCong.setNguoiTaoId(quanLyBanHangDTO.getNguoiTaoId());
             quanLyBanHangThanhCong.setTienNhan(object.getTienNhan());
             quanLyBanHangThanhCong.setNoiDungChinhSua(quanLyBanHangDTO.getNoiDungChinhSua());
             quanLyBanHangThanhCong.setIdHoaDonDuocSua(id);
@@ -172,9 +172,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     sanPhamDTO.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
                     sanPhamDTO.setFlag(object.getFlag());
                     sanPhamThanhCongService.create(sanPhamDTO);
-
-
-
                 }
             }
 
@@ -236,7 +233,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
             resultUpdate.setSanPham(arr);
             resultUpdate.setThongTinNguoiMua(thongTinNguoiMua);
             resultUpdate.setTongCongLichSuHoaDon(tongCongLichSuHoaDon);
-            
+
             result.put("result", resultUpdate);
             result.put("msg", "sửa thành công");
             result.put("status", true);
@@ -468,10 +465,10 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
         result.put("result", arrHoaDon);
         return result;
     }
+
     @Override
     public Map<String, Object> getAllHoaDonByDate(String date) {
         Map<String, Object> result = new HashMap<>();
-
         try {
             List<QuanLyBanHangThanhCong> quanLyBanHangThanhCongList = quanLyBanHangThanhCongRepository.findAllHoaDonByTheoDate(date);
             List<QuanLyBanHangDTO> quanLyBanHangDTOS = new ArrayList<>();
@@ -488,7 +485,7 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 quanLyBanHangDTO.setNgayTaoBanGhi(quanLyBanHangThanhCong.getNgayTaoBanGhi());
                 quanLyBanHangDTO.setTienNhan(quanLyBanHangThanhCong.getTienNhan());
 
-                Integer tongCongLichSuHoaDon  = quanLyBanHangThanhCongRepository.sumLichSuHoaDon(quanLyBanHangThanhCong.getId());
+                Integer tongCongLichSuHoaDon = quanLyBanHangThanhCongRepository.sumLichSuHoaDon(quanLyBanHangThanhCong.getId());
                 // Thông tin tài khoản
                 QuanLyTaiKhoan thongTinTaiKhoanItem = quanLyTaiKhoanService.findById(quanLyBanHangThanhCong.getNguoiTaoId());
                 QuanLyTaiKhoan thongTinNguoiBan = new QuanLyTaiKhoan();
@@ -553,8 +550,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 quanLyBanHangDTOS.add(quanLyBanHangDTO);
             }
             result.put("result", quanLyBanHangDTOS);
-
-
             result.put("status", true);
         } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");

@@ -69,7 +69,6 @@ public class QuanLyBanHangThanhCongController {
 
     @GetMapping(value="/getAllLichSuChinhSuaHoaDonTheoIdHoaDon")
     public Map<String,Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(@RequestParam Long idHoaDon){
-        System.out.println("idhoadon" + idHoaDon);
         return quanLyBanHangThanhCongService.getAllLichSuChinhSuaHoaDonTheoIdHoaDon(idHoaDon);
     }
 
