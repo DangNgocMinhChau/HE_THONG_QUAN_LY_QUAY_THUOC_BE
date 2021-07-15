@@ -61,4 +61,10 @@ public class QuanLyKhoThuocController {
     public Map<String,Object> updateKhoThuoc(){
         return quanLyKhoThuocService.updateKhoThuoc();
     }
+
+    @GetMapping(value = "top10thuocbanchay")
+    public Map<String,Object> getTop10thuocBanChay(){
+        return quanLyKhoThuocService.getTop10thuocBanChay();
+    }
+
 }

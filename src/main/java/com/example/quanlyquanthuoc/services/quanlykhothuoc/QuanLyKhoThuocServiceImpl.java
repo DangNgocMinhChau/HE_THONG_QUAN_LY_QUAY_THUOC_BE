@@ -645,6 +645,108 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
     }
 
     @Override
+    public Map<String, Object> getTop10thuocBanChay() {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            List<KhoThuoc> khoThuocList = quanLyKhoThuocRepository.listTop10ThuocBanChay();
+            List<KhoThuocDTO> khoThuocDTOS = new ArrayList<>();
+
+            for (KhoThuoc khoThuoc : khoThuocList) {
+                    KhoThuocDTO khoThuocDTO = new KhoThuocDTO();
+                    khoThuocDTO.setId(khoThuoc.getId());
+                    khoThuocDTO.setTenThuoc(khoThuoc.getTenThuoc());
+                    khoThuocDTO.setMa(khoThuoc.getMa());
+                    khoThuocDTO.setDonViTinh(khoThuoc.getDonViTinh());
+                    khoThuocDTO.setTongTienTruocThue(khoThuoc.getTongTienTruocThue());
+                    khoThuocDTO.setPhanTramThue(khoThuoc.getPhanTramThue());
+                    khoThuocDTO.setChietKhau(khoThuoc.getChietKhau());
+                    khoThuocDTO.setGiaTien(khoThuoc.getGiaTien());
+                    khoThuocDTO.setNhaCungCapId(khoThuoc.getQuanLyNhaCungCap().getId());
+                    khoThuocDTO.setThanhToan(khoThuoc.getThanhToan());
+                    khoThuocDTO.setSoLuongNhap(khoThuoc.getSoLuongNhap());
+                    khoThuocDTO.setSoLuongDaBan(khoThuoc.getSoLuongDaBan());
+                    khoThuocDTO.setSoLuongMua(khoThuoc.getSoLuongMua());
+                    khoThuocDTO.setKhuVuc(khoThuoc.getKhuVuc());
+                    khoThuocDTO.setPhanLoaiThuoc(khoThuoc.getPhanLoaiThuoc());
+                    khoThuocDTO.setNgayChinhSua(khoThuoc.getNgayChinhSua());
+                    khoThuocDTO.setNgayTaoBanGhi(khoThuoc.getNgayTaoBanGhi());
+                    khoThuocDTO.setHanSuDungThuoc(khoThuoc.getHanSuDungThuoc());
+                    khoThuocDTO.setFlag(khoThuoc.getFlag());
+                    khoThuocDTO.setNguoiTaoId(khoThuoc.getNguoiTaoId());
+                    khoThuocDTO.setFileDinhKem(khoThuoc.getFileDinhKem());
+
+                    khoThuocDTO.setTenNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getTenNhaCungCap());
+                    QuanLyNhaCungCap quanLyNhaCungCapItem = new QuanLyNhaCungCap();
+                    quanLyNhaCungCapItem.setId(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getId());
+                    quanLyNhaCungCapItem.setTenNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getTenNhaCungCap());
+                    quanLyNhaCungCapItem.setDiaChiNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getDiaChiNhaCungCap());
+                    quanLyNhaCungCapItem.setMstNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getMstNhaCungCap());
+                    quanLyNhaCungCapItem.setSoDienThoaiNhaCungCap(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getSoDienThoaiNhaCungCap());
+                    quanLyNhaCungCapItem.setMa(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getMa());
+                    quanLyNhaCungCapItem.setZalo(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getZalo());
+                    quanLyNhaCungCapItem.setEmail(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getEmail());
+                    quanLyNhaCungCapItem.setNguoiTaoId(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getNguoiTaoId());
+                    quanLyNhaCungCapItem.setNgayTaoBanGhi(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getNgayTaoBanGhi());
+                    quanLyNhaCungCapItem.setNgayChinhSua(quanLyNhaCungCapService.findById(khoThuoc.getQuanLyNhaCungCap().getId()).getNgayChinhSua());
+
+                    QuanLyTaiKhoan quanLyTaiKhoanItem = new QuanLyTaiKhoan();
+
+                    quanLyTaiKhoanItem.setId(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getId());
+                    quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenDangNhap());
+                    quanLyTaiKhoanItem.setTenDangNhap(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenDangNhap());
+                    quanLyTaiKhoanItem.setTenNguoiDung(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getTenNguoiDung());
+                    quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getMatKhau());
+                    quanLyTaiKhoanItem.setXacNhanMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getXacNhanMatKhau());
+                    quanLyTaiKhoanItem.setMatKhau(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getMatKhauGoc());
+                    quanLyTaiKhoanItem.setNgaySinh(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getNgaySinh());
+                    quanLyTaiKhoanItem.setGioiTinh(quanLyTaiKhoanService.findById(khoThuoc.getNguoiTaoId()).getGioiTinh());
+                    quanLyTaiKhoanItem.setFacebook(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getFacebook());
+                    quanLyTaiKhoanItem.setSoDienThoai(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getSoDienThoai());
+                    quanLyTaiKhoanItem.setCmnd(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getCmnd());
+                    quanLyTaiKhoanItem.setImg(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getImg());
+                    quanLyTaiKhoanItem.setNgayTaoBanGhi(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayTaoBanGhi());
+                    quanLyTaiKhoanItem.setNgayChinhSua(quanLyTaiKhoanService.findById(khoThuocDTO.getNguoiTaoId()).getNgayChinhSua());
+
+                    // file đính kèm
+                    List arrListFileDinhKem = new ArrayList();
+                    if (khoThuoc.getFileDinhKem() != null) {
+                        String listIdFileDinhKem = khoThuoc.getFileDinhKem();
+                        String[] listId = listIdFileDinhKem.split("/");
+                        for (int i = 0; i < listId.length; i++) {
+                            Optional<FileDB> fileItem = fileDBRepository.findById(listId[i]);
+                            if (fileItem.isPresent()) {
+                                ResponseFile responseFile = new ResponseFile();
+                                responseFile.setId(fileItem.get().getId());
+                                responseFile.setName(fileItem.get().getName());
+                                responseFile.setSize(fileItem.get().getData().length);
+                                responseFile.setType(fileItem.get().getType());
+                                responseFile.setUrl(ServletUriComponentsBuilder
+                                        .fromCurrentContextPath()
+                                        .path("/files/")
+                                        .path(fileItem.get().getId())
+                                        .toUriString());
+                                arrListFileDinhKem.add(responseFile);
+                            }
+                        }
+                    }
+
+                    khoThuocDTO.setFileDBArrayList(arrListFileDinhKem);
+                    khoThuocDTO.setQuanLyNhaCungCap(quanLyNhaCungCapItem);
+                    khoThuocDTO.setThongTinNguoiTao(quanLyTaiKhoanItem);
+                    khoThuocDTOS.add(khoThuocDTO);
+            }
+            result.put("result", khoThuocDTOS);
+            result.put("status", true);
+
+        } catch (Exception e) {
+            result.put("msg", "Lay danh sach  that bai");
+            result.put("status", false);
+        }
+        return result;
+    }
+
+    @Override
     public KhoThuoc findById(Long id) {
         return quanLyKhoThuocRepository.findById(id).orElse(null);
     }
