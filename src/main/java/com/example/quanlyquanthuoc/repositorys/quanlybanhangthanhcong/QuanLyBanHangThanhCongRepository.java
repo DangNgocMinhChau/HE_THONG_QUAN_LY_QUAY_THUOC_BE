@@ -19,8 +19,6 @@ public interface QuanLyBanHangThanhCongRepository extends JpaRepository<QuanLyBa
             , nativeQuery = true)
     Integer sumLichSuHoaDon(Long id_hoa_don);
 
-
-
     @Query(value = "select * from quan_ly_ban_hang_thanh_cong q" +
             " where q.check_edit = false and " +
             "q.ngay_tao_ban_ghi like CONCAT('%',:ngayTaoBanGhi,'%')" +

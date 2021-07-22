@@ -1,6 +1,8 @@
 package com.example.quanlyquanthuoc.repositorys.quanlybanhangthanhcong;
 
+import com.example.quanlyquanthuoc.models.quanlybanhang.SanPhamDTO;
 import com.example.quanlyquanthuoc.models.quanlybanhangthanhcong.SanPhamThanhCong;
+import com.example.quanlyquanthuoc.models.quanlybaocao.BaoCaoTongQuatKhoThuocDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -29,6 +31,16 @@ public interface SanPhamThanhCongRepository extends JpaRepository<SanPhamThanhCo
 
     @Query(value = "select sum(so_luong_mua) from san_pham_thanh_cong s where s.khothuoc_id = ?1", nativeQuery = true)
     Long total(Long khothuoc_id);
+
+
+    @Query(value = "select quanlynhathuoc.san_pham_thanh_cong.khothuoc_id," +
+//            " sum(so_luong_mua) " +
+            "FROM quanlynhathuoc.san_pham_thanh_cong  where khothuoc_id LIKE CONCAT('%',:id,'%')" +
+            "and " +
+            "ngay_tao_ban_ghi like CONCAT('%',:nam,'%')" +  "group by khothuoc_id", nativeQuery = true)
+    SanPhamThanhCong  getBaoCaoThuocTheoNam(String id,String nam);
+
+
 
 
 }

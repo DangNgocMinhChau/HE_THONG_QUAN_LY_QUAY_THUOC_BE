@@ -20,7 +20,8 @@ public class QuanLyTaiKhoanDTO {
     private String ngayChinhSua;
     private Boolean flag;
     private Boolean lockUser;
-
+    private Boolean dangNhapThanhCong;
+    private Integer soLanDangNhapSai;
     public QuanLyTaiKhoanDTO() {
     }
 
@@ -174,5 +175,21 @@ public class QuanLyTaiKhoanDTO {
 
     public void setLockUser(Boolean lockUser) {
         this.lockUser = lockUser;
+    }
+
+    public Boolean getDangNhapThanhCong() {
+        return dangNhapThanhCong;
+    }
+
+    public void setDangNhapThanhCong(Boolean dangNhapThanhCong) {
+        this.dangNhapThanhCong = dangNhapThanhCong;
+    }
+
+    public Integer getSoLanDangNhapSai() {
+        return soLanDangNhapSai;
+    }
+
+    public void setSoLanDangNhapSai(Integer soLanDangNhapSai) {
+        this.soLanDangNhapSai = soLanDangNhapSai;
     }
 }

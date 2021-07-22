@@ -22,6 +22,7 @@ public class QuanLyTaiKhoan {
     private String ngayChinhSua;
     private Boolean flag;
     private Boolean lockUser;
+    private Integer soLanDangNhapSai;
 
     @ManyToOne
     @JoinColumn(name = "quyen_id",nullable = false)
@@ -165,5 +166,13 @@ public class QuanLyTaiKhoan {
 
     public void setLockUser(Boolean lockUser) {
         this.lockUser = lockUser;
+    }
+
+    public Integer getSoLanDangNhapSai() {
+        return soLanDangNhapSai;
+    }
+
+    public void setSoLanDangNhapSai(Integer soLanDangNhapSai) {
+        this.soLanDangNhapSai = soLanDangNhapSai;
     }
 }

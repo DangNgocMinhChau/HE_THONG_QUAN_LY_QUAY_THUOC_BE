@@ -36,7 +36,16 @@ public class QuanLyTaiKhoanControllers {
 
     @GetMapping(value="/{id}")
     public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
-        System.out.println("qua ko");
         return quanLyTaiKhoanService.fetchById(id);
+    }
+
+    @GetMapping(value="login")
+    public Map<String,Object> loginUser(@RequestParam String account,String password){
+        return quanLyTaiKhoanService.loginUser(account,password);
+    }
+
+    @GetMapping(value="findAccountByUser")
+    public Map<String,Object> getAccoutByTenDangNhap(@RequestParam String account){
+        return quanLyTaiKhoanService.getAccoutByTenDangNhap(account);
     }
 }
