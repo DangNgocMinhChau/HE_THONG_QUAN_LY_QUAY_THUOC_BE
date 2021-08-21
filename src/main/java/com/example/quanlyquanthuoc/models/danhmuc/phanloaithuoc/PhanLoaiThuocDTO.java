@@ -9,14 +9,6 @@ public class PhanLoaiThuocDTO {
     private String ma;
     private String ten;
 
-    public PhanLoaiThuocDTO(Long id, String ngayTaoBanGhi, String ngayChinhSua, String ngayXoaBanGhi, Boolean flag) {
-        this.id = id;
-        this.ngayTaoBanGhi = ngayTaoBanGhi;
-        this.ngayChinhSua = ngayChinhSua;
-        this.ngayXoaBanGhi = ngayXoaBanGhi;
-        this.flag = flag;
-    }
-
     public PhanLoaiThuocDTO() {
     }
 

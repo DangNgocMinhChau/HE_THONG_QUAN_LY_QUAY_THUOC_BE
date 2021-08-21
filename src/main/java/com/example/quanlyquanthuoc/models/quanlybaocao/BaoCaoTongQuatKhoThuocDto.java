@@ -11,6 +11,7 @@ public class BaoCaoTongQuatKhoThuocDto {
     public Long getKhoThuoc_id() {
         return khoThuoc_id;
     }
+
     public void setKhoThuoc_id(Long khoThuoc_id) {
         this.khoThuoc_id = khoThuoc_id;
     }

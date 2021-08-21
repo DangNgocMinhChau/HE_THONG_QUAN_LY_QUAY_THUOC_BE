@@ -129,7 +129,6 @@ public class SanPhamThanhCongServiceImpl implements SanPhamThanhCongService {
 
                 KhoThuoc khoThuocById = quanLyKhoThuocService.findById(sanPhamThanhCong.getKhoThuoc().getId());
                 khoThuocItems.setId(khoThuocById.getId());
-                khoThuocItems.setPhanLoaiThuoc(khoThuocById.getPhanLoaiThuoc());
                 khoThuocItems.setHanSuDungThuoc(khoThuocById.getHanSuDungThuoc());
                 khoThuocItems.setTenThuoc(khoThuocById.getTenThuoc());
                 khoThuocItems.setMa(khoThuocById.getMa());

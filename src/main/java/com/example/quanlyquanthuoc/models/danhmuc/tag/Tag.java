@@ -1,14 +1,21 @@
-package com.example.quanlyquanthuoc.models.quanlytaikhoan;
+package com.example.quanlyquanthuoc.models.danhmuc.tag;
 
-public class QuyenDto {
+import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+public class Tag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     private Long id;
     private String ma;
     private String ten;
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
-
-    public QuyenDto() {
+    public Tag() {
     }
 
     public String getNgayTaoBanGhi() {
@@ -58,4 +65,5 @@ public class QuyenDto {
     public void setTen(String ten) {
         this.ten = ten;
     }
+
 }

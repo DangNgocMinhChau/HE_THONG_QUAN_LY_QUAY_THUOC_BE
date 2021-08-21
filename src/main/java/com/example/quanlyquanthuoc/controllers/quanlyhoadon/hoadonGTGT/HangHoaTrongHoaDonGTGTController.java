@@ -42,8 +42,8 @@ public class HangHoaTrongHoaDonGTGTController {
         return hangHoaTrongHoaDonGTGTService.update(id, hangHoaTrongHoaDonGTGT_dto);
     }
 
-    @GetMapping(value="/getAllHangHoaByIdHoaDon/{id}")
-    public List<HangHoaTrongHoaDonGTGT_DTO> getAllHangHoaByIdHoaDon(@PathVariable Long id){
+    @GetMapping(value = "/getAllHangHoaByIdHoaDon/{id}")
+    public List<HangHoaTrongHoaDonGTGT_DTO> getAllHangHoaByIdHoaDon(@PathVariable Long id) {
         return hangHoaTrongHoaDonGTGTService.getAllHangHoaByIdHoaDon(id);
     }
 

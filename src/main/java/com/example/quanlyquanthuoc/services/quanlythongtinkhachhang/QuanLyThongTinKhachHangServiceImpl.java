@@ -19,7 +19,7 @@ public class QuanLyThongTinKhachHangServiceImpl implements QuanLyThongTinKhachHa
 
     @Override
     public Map<String, Object> create(QuanLyThongTinKhachHang quanLyThongTinKhachHang) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyThongTinKhachHang quanLyThongTinKhachHangItem = new QuanLyThongTinKhachHang();
         try {
             quanLyThongTinKhachHangItem.setTenKhachHang(quanLyThongTinKhachHang.getTenKhachHang());
@@ -29,30 +29,30 @@ public class QuanLyThongTinKhachHangServiceImpl implements QuanLyThongTinKhachHa
             quanLyThongTinKhachHangItem.setFlag(true);
 
             quanLyThongTinKhachHangRepository.save(quanLyThongTinKhachHangItem);
-            result.put("result",quanLyThongTinKhachHangItem);
-            result.put("msg","Thêm mói thành công");
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("msg","Thêm mới thất bại");
-            result.put("status",false);
+            result.put("result", quanLyThongTinKhachHangItem);
+            result.put("msg", "Thêm mói thành công");
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Thêm mới thất bại");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> update(Long id, QuanLyThongTinKhachHang quanLyThongTinKhachHang) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         try {
             QuanLyThongTinKhachHang object = quanLyThongTinKhachHangRepository.findById(id).get();
-            if(quanLyThongTinKhachHang.getFlag() != null &&  quanLyThongTinKhachHang.getFlag() == false ){
+            if (quanLyThongTinKhachHang.getFlag() != null && quanLyThongTinKhachHang.getFlag() == false) {
                 object.setId(quanLyThongTinKhachHang.getId());
                 object.setTenKhachHang(quanLyThongTinKhachHang.getTenKhachHang());
                 object.setSoDienThoai(quanLyThongTinKhachHang.getSoDienThoai());
                 object.setFlag(quanLyThongTinKhachHang.getFlag());
                 object.setNgayTaoBanGhi(quanLyThongTinKhachHang.getNgayTaoBanGhi());
                 object.setNgayChinhSua(quanLyThongTinKhachHang.getNgayChinhSua());
-            }else{
+            } else {
                 object.setId(quanLyThongTinKhachHang.getId());
                 object.setTenKhachHang(quanLyThongTinKhachHang.getTenKhachHang());
                 object.setSoDienThoai(quanLyThongTinKhachHang.getSoDienThoai());
@@ -60,28 +60,28 @@ public class QuanLyThongTinKhachHangServiceImpl implements QuanLyThongTinKhachHa
                 object.setNgayTaoBanGhi(quanLyThongTinKhachHang.getNgayTaoBanGhi());
                 object.setNgayChinhSua(quanLyThongTinKhachHang.getNgayChinhSua());
             }
-                    quanLyThongTinKhachHangRepository.save(object);
-            result.put("result",object);
-            result.put("msg","sửa thành công");
-            result.put("status",true);
-        }catch (Exception e) {
-            result.put("msg","Sửa thất bại");
-            result.put("status",false);
+            quanLyThongTinKhachHangRepository.save(object);
+            result.put("result", object);
+            result.put("msg", "sửa thành công");
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Sửa thất bại");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> fetchById(Long id) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyThongTinKhachHang quanLyThongTinKhachHang = quanLyThongTinKhachHangRepository.findById(id).orElse(null);
-        try{
-            result.put("result",quanLyThongTinKhachHang);
-            result.put("status",true);
-        }catch (Exception e){
+        try {
+            result.put("result", quanLyThongTinKhachHang);
+            result.put("status", true);
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("result",null);
-            result.put("status",false);
+            result.put("result", null);
+            result.put("status", false);
         }
         return result;
     }
@@ -90,20 +90,20 @@ public class QuanLyThongTinKhachHangServiceImpl implements QuanLyThongTinKhachHa
     public Map<String, Object> getAll() {
         List<QuanLyThongTinKhachHang> quanLyThongTinKhachHangList = quanLyThongTinKhachHangRepository.findAll();
         List<QuanLyThongTinKhachHang> listThongTinKhachHangDuocQuyenHienThi = new ArrayList<>();
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         try {
-            for(QuanLyThongTinKhachHang quanLyThongTinKhachHang : quanLyThongTinKhachHangList){
+            for (QuanLyThongTinKhachHang quanLyThongTinKhachHang : quanLyThongTinKhachHangList) {
 
-                if(quanLyThongTinKhachHang.getFlag()){
+                if (quanLyThongTinKhachHang.getFlag()) {
                     listThongTinKhachHangDuocQuyenHienThi.add(quanLyThongTinKhachHang);
                 }
             }
             result.put("result", listThongTinKhachHangDuocQuyenHienThi);
-            result.put("status",true);
-        }catch (Exception e){
+            result.put("status", true);
+        } catch (Exception e) {
             result.put("msg", "Lấy danh sách thất bại!");
-            result.put("status",false);
+            result.put("status", false);
         }
         return result;
     }

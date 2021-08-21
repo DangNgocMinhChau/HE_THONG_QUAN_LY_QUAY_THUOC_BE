@@ -65,7 +65,7 @@ public class HangHoaTrongHoaDonGTGTServiceImpl implements HangHoaTrongHoaDonGTGT
             object.setThanhTien(hangHoaTrongHoaDonGTGT_dto.getThanhTien());
             object.setSoLuong(hangHoaTrongHoaDonGTGT_dto.getSoLuong());
             hangHoaTrongHoaDonGTGTRepository.save(object);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return result;
@@ -81,9 +81,9 @@ public class HangHoaTrongHoaDonGTGTServiceImpl implements HangHoaTrongHoaDonGTGT
         Map<String, Object> result = new HashMap<>();
         try {
             result.put("result", hangHoaTrongHoaDonGTGTRepository.findById(id).orElse(null));
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("status",false);
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("status", false);
         }
         return result;
     }
@@ -104,18 +104,18 @@ public class HangHoaTrongHoaDonGTGTServiceImpl implements HangHoaTrongHoaDonGTGT
         Map<String, Object> result = new HashMap<>();
         try {
             hangHoaTrongHoaDonGTGTRepository.deleteById(id);
-            result.put("result","Xóa thành công");
-        }catch (Exception e){
-            result.put("result","Xoá thất bại");
+            result.put("result", "Xóa thành công");
+        } catch (Exception e) {
+            result.put("result", "Xoá thất bại");
         }
         return result;
     }
 
     @Override
     public void deleteById(Long id) {
-        try{
+        try {
             hangHoaTrongHoaDonGTGTRepository.deleteById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -129,7 +129,7 @@ public class HangHoaTrongHoaDonGTGTServiceImpl implements HangHoaTrongHoaDonGTGT
     @Override
     public List<HangHoaTrongHoaDonGTGT_DTO> getAllHangHoaByIdHoaDon(Long id) {
 
-        return  hangHoaTrongHoaDonGTGTRepository.findByHangHoaTheoIdHoaDonGTGT(id).stream().map(this::toDto).collect(Collectors.toList());
+        return hangHoaTrongHoaDonGTGTRepository.findByHangHoaTheoIdHoaDonGTGT(id).stream().map(this::toDto).collect(Collectors.toList());
 
     }
 

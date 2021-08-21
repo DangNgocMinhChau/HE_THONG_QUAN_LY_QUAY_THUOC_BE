@@ -47,31 +47,30 @@ public class QuanLyBanHangThanhCongController {
         return quanLyBanHangThanhCongService.update(id, quanLyBanHangDTO);
     }
 
-    @GetMapping(value="/getAllSanPhamByIdBanHang/{id}")
-    public List<SanPhamDTO> getQuanLyBanHangById(@PathVariable Long id){
+    @GetMapping(value = "/getAllSanPhamByIdBanHang/{id}")
+    public List<SanPhamDTO> getQuanLyBanHangById(@PathVariable Long id) {
         return sanPhamThanhCongService.getAllSanPhamById(id);
     }
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> getQuanLyTaiKhoanById(@PathVariable Long id) {
         return quanLyBanHangThanhCongService.fetchById(id);
     }
 
-    @GetMapping(value="/getAllHoaDonByKhachHang/{id}")
-    public Map<String,Object> getAllHoaDonByKhachHang(@PathVariable Long id){
+    @GetMapping(value = "/getAllHoaDonByKhachHang/{id}")
+    public Map<String, Object> getAllHoaDonByKhachHang(@PathVariable Long id) {
         return quanLyBanHangThanhCongService.findAllHoaDonByIdKhachHang(id);
     }
 
-    @GetMapping(value="/getAllHoaDonByDate")
-    public Map<String,Object> getAllHoaDonByDate(@RequestParam String date){
+    @GetMapping(value = "/getAllHoaDonByDate")
+    public Map<String, Object> getAllHoaDonByDate(@RequestParam String date) {
         return quanLyBanHangThanhCongService.getAllHoaDonByDate(date);
     }
 
-    @GetMapping(value="/getAllLichSuChinhSuaHoaDonTheoIdHoaDon")
-    public Map<String,Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(@RequestParam Long idHoaDon){
+    @GetMapping(value = "/getAllLichSuChinhSuaHoaDonTheoIdHoaDon")
+    public Map<String, Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(@RequestParam Long idHoaDon) {
         return quanLyBanHangThanhCongService.getAllLichSuChinhSuaHoaDonTheoIdHoaDon(idHoaDon);
     }
-
 
 
 }

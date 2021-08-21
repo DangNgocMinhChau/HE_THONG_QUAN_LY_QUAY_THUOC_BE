@@ -1,11 +1,10 @@
 package com.example.quanlyquanthuoc.models.quanlykhothuoc;
 
 
-import com.example.quanlyquanthuoc.models.quanlyfiles.FileDB;
-import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCap;
+import com.example.quanlyquanthuoc.models.danhmuc.phanloaithuoc.PhanLoaiThuoc;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCap;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KhoThuocDTO {
@@ -24,16 +23,19 @@ public class KhoThuocDTO {
     private String hanSuDungThuoc;
     private Long nguoiTaoId;
     private Long nhaCungCapId;
+    private Long loaiThuocId;
     private String khuVuc;
     private String phanLoaiThuoc;
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
     private QuanLyNhaCungCap quanLyNhaCungCap;
+    private PhanLoaiThuoc loaiThuoc;
     private QuanLyTaiKhoan thongTinNguoiTao;
     private String fileDinhKem;
     private String tenNhaCungCap;
     private List fileDBArrayList;
+    private String tenPhanLoaiThuoc;
 
     public Long getId() {
         return id;
@@ -233,5 +235,29 @@ public class KhoThuocDTO {
 
     public void setFileDBArrayList(List fileDBArrayList) {
         this.fileDBArrayList = fileDBArrayList;
+    }
+
+    public PhanLoaiThuoc getLoaiThuoc() {
+        return loaiThuoc;
+    }
+
+    public void setLoaiThuoc(PhanLoaiThuoc loaiThuoc) {
+        this.loaiThuoc = loaiThuoc;
+    }
+
+    public Long getLoaiThuocId() {
+        return loaiThuocId;
+    }
+
+    public void setLoaiThuocId(Long loaiThuocId) {
+        this.loaiThuocId = loaiThuocId;
+    }
+
+    public String getTenPhanLoaiThuoc() {
+        return tenPhanLoaiThuoc;
+    }
+
+    public void setTenPhanLoaiThuoc(String tenPhanLoaiThuoc) {
+        this.tenPhanLoaiThuoc = tenPhanLoaiThuoc;
     }
 }

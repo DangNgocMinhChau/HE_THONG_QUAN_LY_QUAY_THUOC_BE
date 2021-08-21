@@ -16,28 +16,28 @@ public class SanPhamController {
     private SanPhamService sanPhamService;
 
     @PostMapping()
-    public Map<String,Object> create (@RequestBody SanPhamDTO sanPhamDTO){
+    public Map<String, Object> create(@RequestBody SanPhamDTO sanPhamDTO) {
         return sanPhamService.create(sanPhamDTO);
     }
 
     @GetMapping()
-    public Map<String,Object> getAll () {
+    public Map<String, Object> getAll() {
         return sanPhamService.getAll();
     }
 
     @DeleteMapping()
-    public Map<String,Object> delete (@RequestBody Long[] ids) {
+    public Map<String, Object> delete(@RequestBody Long[] ids) {
         return sanPhamService.delete(ids);
     }
 
-    @DeleteMapping(value="/{id}")
-    public void deleteById (@PathVariable Long id) {
-         sanPhamService.deleteById(id);
+    @DeleteMapping(value = "/{id}")
+    public void deleteById(@PathVariable Long id) {
+        sanPhamService.deleteById(id);
     }
 
 
-    @PutMapping(value="/{id}")
-    public Map<String,Object> update (@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
-        return sanPhamService.update(id,sanPhamDTO);
+    @PutMapping(value = "/{id}")
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
+        return sanPhamService.update(id, sanPhamDTO);
     }
 }

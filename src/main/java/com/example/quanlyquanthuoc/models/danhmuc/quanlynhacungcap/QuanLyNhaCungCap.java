@@ -1,4 +1,4 @@
-package com.example.quanlyquanthuoc.models.quanlynhacungcap;
+package com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap;
 
 
 import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuoc;
@@ -26,6 +26,7 @@ public class QuanLyNhaCungCap {
 
     @OneToMany(mappedBy = "quanLyNhaCungCap")
     private Set<KhoThuoc> khoThuocs;
+
     public QuanLyNhaCungCap() {
     }
 

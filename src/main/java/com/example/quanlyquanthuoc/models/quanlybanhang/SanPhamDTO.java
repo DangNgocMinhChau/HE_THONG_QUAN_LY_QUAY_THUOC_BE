@@ -10,7 +10,7 @@ public class SanPhamDTO {
     private Boolean flag;
     private QuanLyBanHang quanLyBanHang;
     private KhoThuoc khoThuoc;
-    private Long soLuongMua ;
+    private Long soLuongMua;
     private Long khoThuocId;
     private Long quanLyBanHangId;
     private KhoThuoc sanPham;

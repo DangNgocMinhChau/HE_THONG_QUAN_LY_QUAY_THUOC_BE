@@ -1,9 +1,9 @@
 package com.example.quanlyquanthuoc.models.quanlykhothuoc;
 
 
-
 import com.example.quanlyquanthuoc.models.quanlybanhang.SanPham;
-import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCap;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCap;
+import com.example.quanlyquanthuoc.models.danhmuc.phanloaithuoc.PhanLoaiThuoc;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,7 +25,6 @@ public class KhoThuoc {
     private Long soLuongDaBan;
     private Long soLuongMua;
     private String khuVuc;
-    private String phanLoaiThuoc;
     private String hanSuDungThuoc;
     private Long nguoiTaoId;
     private String ngayTaoBanGhi;
@@ -35,8 +34,13 @@ public class KhoThuoc {
 
 
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "nhacungcap_id",nullable = false)
+    @JoinColumn(name = "nhacungcap_id", nullable = false)
     private QuanLyNhaCungCap quanLyNhaCungCap;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "loaithuoc_id", nullable = false)
+    private PhanLoaiThuoc loaiThuoc;
+
 
     @OneToMany(mappedBy = "khoThuoc")
     private Set<SanPham> sanPhams;
@@ -149,14 +153,6 @@ public class KhoThuoc {
         this.khuVuc = khuVuc;
     }
 
-    public String getPhanLoaiThuoc() {
-        return phanLoaiThuoc;
-    }
-
-    public void setPhanLoaiThuoc(String phanLoaiThuoc) {
-        this.phanLoaiThuoc = phanLoaiThuoc;
-    }
-
     public String getNgayTaoBanGhi() {
         return ngayTaoBanGhi;
     }
@@ -219,5 +215,13 @@ public class KhoThuoc {
 
     public void setFileDinhKem(String fileDinhKem) {
         this.fileDinhKem = fileDinhKem;
+    }
+
+    public PhanLoaiThuoc getLoaiThuoc() {
+        return loaiThuoc;
+    }
+
+    public void setLoaiThuoc(PhanLoaiThuoc loaiThuoc) {
+        this.loaiThuoc = loaiThuoc;
     }
 }

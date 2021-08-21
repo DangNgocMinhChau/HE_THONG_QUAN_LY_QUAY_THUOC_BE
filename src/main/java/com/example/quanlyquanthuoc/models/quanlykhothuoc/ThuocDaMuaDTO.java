@@ -29,6 +29,7 @@ public class ThuocDaMuaDTO {
     private Long idThuoc;
     private Double totalTien;
     private QuanLyThongTinKhachHang thongTinNguoiMua;
+
     public ThuocDaMuaDTO() {
     }
 

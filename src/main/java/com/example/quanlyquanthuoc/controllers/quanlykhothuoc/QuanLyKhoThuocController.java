@@ -16,54 +16,54 @@ public class QuanLyKhoThuocController {
     private QuanLyKhoThuocService quanLyKhoThuocService;
 
     @PostMapping()
-    public Map<String,Object> create (@RequestBody KhoThuocDTO khoThuocDTO){
+    public Map<String, Object> create(@RequestBody KhoThuocDTO khoThuocDTO) {
         return quanLyKhoThuocService.create(khoThuocDTO);
     }
 
     @GetMapping()
-    public Map<String,Object> getAll () {
+    public Map<String, Object> getAll() {
         return quanLyKhoThuocService.getAll();
     }
 
     @GetMapping("/thungrackhothuoc")
-    public Map<String,Object> getAllThungRacKhoThuoc () {
+    public Map<String, Object> getAllThungRacKhoThuoc() {
         return quanLyKhoThuocService.getAllThungRacKhoThuoc();
     }
 
 
     @DeleteMapping("/xoavinhvien")
-    public Map<String,Object> deleteVinhvienKhoThuoc (@RequestBody Long[] ids) {
+    public Map<String, Object> deleteVinhvienKhoThuoc(@RequestBody Long[] ids) {
         return quanLyKhoThuocService.deleteVinhVien(ids);
     }
 
     @DeleteMapping()
-    public Map<String,Object> delete (@RequestBody Long[] ids) {
+    public Map<String, Object> delete(@RequestBody Long[] ids) {
         return quanLyKhoThuocService.delete(ids);
     }
 
 
-    @PutMapping(value="/{id}")
-    public Map<String,Object> update (@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {
-        return quanLyKhoThuocService.update(id,khoThuocDTO);
+    @PutMapping(value = "/{id}")
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {
+        return quanLyKhoThuocService.update(id, khoThuocDTO);
     }
 
-    @PutMapping(value="/capnhatlaikhothuockhiedithoadon/{id}")
-    public Map<String,Object> updateLaiKhoThuocKhiEditHoadon (@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {
-        return quanLyKhoThuocService.updateLaiKhoThuocKhiEditHoadon(id,khoThuocDTO);
+    @PutMapping(value = "/capnhatlaikhothuockhiedithoadon/{id}")
+    public Map<String, Object> updateLaiKhoThuocKhiEditHoadon(@PathVariable Long id, @RequestBody KhoThuocDTO khoThuocDTO) {
+        return quanLyKhoThuocService.updateLaiKhoThuocKhiEditHoadon(id, khoThuocDTO);
     }
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> getQuanLyTaiKhoanById(@PathVariable Long id) {
         return quanLyKhoThuocService.fetchById(id);
     }
 
     @GetMapping(value = "/updatekhothuoc")
-    public Map<String,Object> updateKhoThuoc(){
+    public Map<String, Object> updateKhoThuoc() {
         return quanLyKhoThuocService.updateKhoThuoc();
     }
 
     @GetMapping(value = "top10thuocbanchay")
-    public Map<String,Object> getTop10thuocBanChay(){
+    public Map<String, Object> getTop10thuocBanChay() {
         return quanLyKhoThuocService.getTop10thuocBanChay();
     }
 

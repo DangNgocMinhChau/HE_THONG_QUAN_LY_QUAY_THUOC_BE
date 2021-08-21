@@ -9,15 +9,24 @@ import java.util.List;
 import java.util.Map;
 
 public interface QuanLyBanHangThanhCongService {
-    public Map<String,Object> create(QuanLyBanHangDTO quanLyBanHangDTO);
-    public Map<String,Object> update(Long id, QuanLyBanHangDTO quanLyBanHangDTO);
-    public Map<String,Object> fetchById(Long id);
-    public Map<String,Object> getAll();
-    public Map<String,Object> delete(Long[] listIds);
+    public Map<String, Object> create(QuanLyBanHangDTO quanLyBanHangDTO);
+
+    public Map<String, Object> update(Long id, QuanLyBanHangDTO quanLyBanHangDTO);
+
+    public Map<String, Object> fetchById(Long id);
+
+    public Map<String, Object> getAll();
+
+    public Map<String, Object> delete(Long[] listIds);
+
     QuanLyBanHangThanhCong findById(Long id);
+
     public List<SanPhamThanhCong> getAllSanPhamById(Long id);
-    public Map<String,Object> findAllHoaDonByIdKhachHang(Long idKhachHang);
-    public Map<String,Object> getAllHoaDonByDate(String date);
-    public Map<String,Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(Long idHoaDon);
+
+    public Map<String, Object> findAllHoaDonByIdKhachHang(Long idKhachHang);
+
+    public Map<String, Object> getAllHoaDonByDate(String date);
+
+    public Map<String, Object> getAllLichSuChinhSuaHoaDonTheoIdHoaDon(Long idHoaDon);
 
 }

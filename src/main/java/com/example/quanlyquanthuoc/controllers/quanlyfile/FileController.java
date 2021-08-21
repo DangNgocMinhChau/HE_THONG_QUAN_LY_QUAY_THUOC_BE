@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FileController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class FileController {
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
-            File convertFile = new File("D:/LamViec/du_an/PJ_QUAN_LY_QUAY_THUOC/FE/HE_THONG_QUAN_LY_QUAY_THUOC_FE/public/filedinhkem/" + file.getOriginalFilename());
+            File convertFile = new File("D:/LamViec/IT/DuAn/QuayThuoc/HE_THONG_QUAN_LY_QUAY_THUOC_FE/public/filedinhkem/" + file.getOriginalFilename());
             convertFile.createNewFile();
             FileOutputStream fout = new FileOutputStream(convertFile);
             fout.write(file.getBytes());
@@ -126,6 +126,11 @@ public class FileController {
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping("/files/getAllSelect")
+    public Map<String, Object> getAllSelect() {
+        return fileStorageDBService.getAllSelect();
     }
 
 }

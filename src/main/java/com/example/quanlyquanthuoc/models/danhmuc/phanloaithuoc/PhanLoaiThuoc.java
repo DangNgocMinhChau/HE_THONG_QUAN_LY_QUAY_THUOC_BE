@@ -1,9 +1,9 @@
 package com.example.quanlyquanthuoc.models.danhmuc.phanloaithuoc;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuoc;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class PhanLoaiThuoc {
@@ -16,6 +16,10 @@ public class PhanLoaiThuoc {
     private String ngayChinhSua;
     private String ngayXoaBanGhi;
     private Boolean flag;
+
+
+    @OneToMany(mappedBy = "loaiThuoc")
+    private Set<KhoThuoc> khoThuocs;
 
     public PhanLoaiThuoc() {
     }
@@ -74,5 +78,13 @@ public class PhanLoaiThuoc {
 
     public void setTen(String ten) {
         this.ten = ten;
+    }
+
+    public Set<KhoThuoc> getKhoThuocs() {
+        return khoThuocs;
+    }
+
+    public void setKhoThuocs(Set<KhoThuoc> khoThuocs) {
+        this.khoThuocs = khoThuocs;
     }
 }

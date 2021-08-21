@@ -209,7 +209,7 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
             result.put("msg", "sửa thành công");
             result.put("status", true);
 
-            }catch (Exception e) {
+        } catch (Exception e) {
             result.put("msg", "Sửa thất bại");
             result.put("status", false);
         }
@@ -221,8 +221,8 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
         Map<String, Object> result = new HashMap<>();
         HoaDonGTGT hoaDonGTGT = hoaDonGTGTRepository.findById(id).orElse(null);
         HoaDonGTGTDTO hoaDonGTGTDTO = new HoaDonGTGTDTO();
-        try{
-            if(hoaDonGTGT != null){
+        try {
+            if (hoaDonGTGT != null) {
                 hoaDonGTGTDTO.setId(hoaDonGTGT.getId());
                 hoaDonGTGTDTO.setHoTenNguoiMua(hoaDonGTGT.getHoTenNguoiMua());
                 hoaDonGTGTDTO.setTenDonVi(hoaDonGTGT.getTenDonVi());
@@ -265,7 +265,7 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
             }
             result.put("result", hoaDonGTGTDTO);
             result.put("status", true);
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
             result.put("status", false);
         }
@@ -406,11 +406,11 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
         Map<String, Object> result = new HashMap<>();
         try {
             HoaDonGTGT hoaDonGTGT = hoaDonGTGTRepository.findById(id).orElse(null);
-                hoaDonGTGT.setFlag(false);
-                hoaDonGTGTRepository.save(hoaDonGTGT);
+            hoaDonGTGT.setFlag(false);
+            hoaDonGTGTRepository.save(hoaDonGTGT);
             result.put("result", "Xoá thành công hoá đơn");
             result.put("status", true);
-        }catch (Exception e) {
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
             result.put("status", false);
         }
@@ -426,7 +426,7 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
             hoaDonGTGTRepository.save(hoaDonGTGT);
             result.put("result", "Phục hồi hóa đơn thành công");
             result.put("status", true);
-        }catch (Exception e) {
+        } catch (Exception e) {
             result.put("msg", "Phục hồi hóa đơn thất bại");
             result.put("status", false);
         }
@@ -490,7 +490,7 @@ public class HoaDonGTGTServiceImpl implements HoaDonGTGTService {
             result.put("result", hoaDonGTGTDTOS);
             result.put("status", true);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
             result.put("status", false);
         }

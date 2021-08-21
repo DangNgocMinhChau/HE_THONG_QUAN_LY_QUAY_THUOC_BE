@@ -16,12 +16,12 @@ public class QuanLyCMNDControllers {
     private QuanLyCmndService quanLyCmndService;
 
     @PostMapping()
-    public Map<String,Object> create (@RequestBody QuanLyCMND quanLyCMND){
+    public Map<String, Object> create(@RequestBody QuanLyCMND quanLyCMND) {
         return quanLyCmndService.create(quanLyCMND);
     }
 
     @GetMapping()
-    public Map<String,Object> getDanhSachThuoc () {
+    public Map<String, Object> getDanhSachThuoc() {
         return quanLyCmndService.getAllCMND();
     }
 
@@ -31,17 +31,17 @@ public class QuanLyCMNDControllers {
 //    }
 
     @DeleteMapping(value = "/{id}")
-    public Map<String,Object> delete (@PathVariable Long id) {
+    public Map<String, Object> delete(@PathVariable Long id) {
         return quanLyCmndService.deleteById(id);
     }
 
-    @PutMapping(value="/{id}")
-    public Map<String,Object> update (@PathVariable Long id, @RequestBody QuanLyCMND quanLyCMND) {
-        return quanLyCmndService.update(id,quanLyCMND);
+    @PutMapping(value = "/{id}")
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody QuanLyCMND quanLyCMND) {
+        return quanLyCmndService.update(id, quanLyCMND);
     }
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> getById(@PathVariable Long id){
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> getById(@PathVariable Long id) {
         return quanLyCmndService.fetchById(id);
     }
 }

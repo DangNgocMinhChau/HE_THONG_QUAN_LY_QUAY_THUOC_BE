@@ -22,6 +22,7 @@ public class QuanLyTaiKhoanDTO {
     private Boolean lockUser;
     private Boolean dangNhapThanhCong;
     private Integer soLanDangNhapSai;
+
     public QuanLyTaiKhoanDTO() {
     }
 

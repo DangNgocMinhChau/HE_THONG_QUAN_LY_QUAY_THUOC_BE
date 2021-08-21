@@ -31,11 +31,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public Map<String, Object> create(SanPhamDTO sanPhamDTO) {
         System.out.println(sanPhamDTO);
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         SanPhamDTO resultCreate = new SanPhamDTO();
         try {
             SanPham sanPham = new SanPham();
-            sanPham.setKhoThuoc(quanLyKhoThuocService.findById( sanPhamDTO.getKhoThuocId()));
+            sanPham.setKhoThuoc(quanLyKhoThuocService.findById(sanPhamDTO.getKhoThuocId()));
             sanPham.setQuanLyBanHang(quanLyBanHangService.findById(sanPhamDTO.getQuanLyBanHangId()));
             sanPham.setFlag(sanPhamDTO.getFlag());
             sanPham.setNgayChinhSua(sanPhamDTO.getNgayChinhSua());
@@ -43,7 +43,7 @@ public class SanPhamServiceImpl implements SanPhamService {
             sanPham.setSoLuongMua(sanPhamDTO.getSoLuongMua());
 
             sanPhamRepository.save(sanPham);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return result;
@@ -51,18 +51,18 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public Map<String, Object> update(Long id, SanPhamDTO sanPhamDTO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         SanPhamDTO resultCreate = new SanPhamDTO();
         try {
             SanPham object = sanPhamRepository.findById(id).get();
-            object.setKhoThuoc(quanLyKhoThuocService.findById( sanPhamDTO.getKhoThuocId()));
+            object.setKhoThuoc(quanLyKhoThuocService.findById(sanPhamDTO.getKhoThuocId()));
             object.setQuanLyBanHang(quanLyBanHangService.findById(sanPhamDTO.getQuanLyBanHangId()));
             object.setFlag(sanPhamDTO.getFlag());
             object.setNgayChinhSua(sanPhamDTO.getNgayChinhSua());
             object.setNgayTaoBanGhi(sanPhamDTO.getNgayTaoBanGhi());
             object.setSoLuongMua(sanPhamDTO.getSoLuongMua());
             sanPhamRepository.save(object);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return result;
@@ -75,11 +75,11 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public Map<String, Object> getAll() {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         try {
             List<SanPham> sanPhamList = sanPhamRepository.findAll();
             List<SanPhamDTO> sanPhamDTOS = new ArrayList<>();
-            for (SanPham sanPham: sanPhamList) {
+            for (SanPham sanPham : sanPhamList) {
 
                 SanPhamDTO sanPhamDTO = new SanPhamDTO();
                 sanPhamDTO.setId(sanPham.getId());
@@ -96,7 +96,6 @@ public class SanPhamServiceImpl implements SanPhamService {
 
                 KhoThuoc khoThuocById = quanLyKhoThuocService.findById(sanPham.getKhoThuoc().getId());
                 khoThuocItems.setId(khoThuocById.getId());
-                khoThuocItems.setPhanLoaiThuoc(khoThuocById.getPhanLoaiThuoc());
                 khoThuocItems.setHanSuDungThuoc(khoThuocById.getHanSuDungThuoc());
                 khoThuocItems.setTenThuoc(khoThuocById.getTenThuoc());
                 khoThuocItems.setMa(khoThuocById.getMa());
@@ -126,10 +125,10 @@ public class SanPhamServiceImpl implements SanPhamService {
                 sanPhamDTOS.add(sanPhamDTO);
             }
             result.put("result", sanPhamDTOS);
-            result.put("status",true);
-        }catch (Exception e){
+            result.put("status", true);
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
-            result.put("status",false);
+            result.put("status", false);
         }
         return result;
     }
@@ -160,7 +159,7 @@ public class SanPhamServiceImpl implements SanPhamService {
         return null;
     }
 
-    private SanPhamDTO toDto(SanPham sanPham){
+    private SanPhamDTO toDto(SanPham sanPham) {
         SanPhamDTO sanPhamDTO = new SanPhamDTO();
         sanPhamDTO.setId(sanPham.getId());
         sanPhamDTO.setSoLuongMua(sanPham.getSoLuongMua());

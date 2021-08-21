@@ -10,10 +10,16 @@ import java.util.stream.Stream;
 
 public interface FileStorageDBService {
     public FileDB create(MultipartFile file) throws IOException;
+
     public FileDB getFile(String id);
+
     public Stream<FileDB> getAllFiles();
-    public Map<String,Object> deleteFile(String id);
+    public Map<String, Object> getAllSelect();
+
+    public Map<String, Object> deleteFile(String id);
+
     public Stream<FileDB> getAllFilesImg();
+
     public Stream<FileDB> getAllFilesTxt();
 
 

@@ -1,9 +1,10 @@
-package com.example.quanlyquanthuoc.services.quanlynhacungcap;
+package com.example.quanlyquanthuoc.services.danhmuc.quanlynhacungcap;
 
 
-import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCap;
-import com.example.quanlyquanthuoc.models.quanlynhacungcap.QuanLyNhaCungCapDTO;
-import com.example.quanlyquanthuoc.repositorys.quanlynhacungcap.QuanLyNhaCungCapRepository;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCap;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCapDTO;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
+import com.example.quanlyquanthuoc.repositorys.danhmuc.quanlynhacungcap.QuanLyNhaCungCapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,9 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
 
     @Override
     public Map<String, Object> create(QuanLyNhaCungCapDTO quanLyNhaCungCapDTO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyNhaCungCapDTO resultCreate = new QuanLyNhaCungCapDTO();
-        try{
+        try {
             QuanLyNhaCungCap quanLyNhaCungCap = new QuanLyNhaCungCap();
             quanLyNhaCungCap.setTenNhaCungCap(quanLyNhaCungCapDTO.getTenNhaCungCap());
             quanLyNhaCungCap.setDiaChiNhaCungCap(quanLyNhaCungCapDTO.getDiaChiNhaCungCap());
@@ -50,66 +51,49 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
             resultCreate.setNgayChinhSua(quanLyNhaCungCap.getNgayChinhSua());
             resultCreate.setNgayTaoBanGhi(quanLyNhaCungCap.getNgayTaoBanGhi());
 
-            result.put("result",resultCreate);
-            result.put("msg","Thêm mói thành công");
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("msg","Thêm mới thất bại");
-            result.put("status",false);
+            result.put("result", resultCreate);
+            result.put("msg", "Thêm mới thành công");
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Thêm mới thất bại");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> update(Long id, QuanLyNhaCungCapDTO quanLyNhaCungCapDTO) {
-        Map<String,Object> result = new HashMap<>();
-        QuanLyNhaCungCapDTO resultUpdate = new QuanLyNhaCungCapDTO();
+        Map<String, Object> result = new HashMap<>();
         try {
             QuanLyNhaCungCap object = quanLyNhaCungCapRepository.findById(id).get();
-            if(quanLyNhaCungCapDTO.getFlag() != null  && quanLyNhaCungCapDTO.getFlag() == false){
-                object.setId(id);
-                object.setTenNhaCungCap(quanLyNhaCungCapDTO.getTenNhaCungCap());
-                object.setDiaChiNhaCungCap(quanLyNhaCungCapDTO.getDiaChiNhaCungCap());
-                object.setMa(quanLyNhaCungCapDTO.getMa());
-                object.setMstNhaCungCap(quanLyNhaCungCapDTO.getMstNhaCungCap());
-                object.setSoDienThoaiNhaCungCap(quanLyNhaCungCapDTO.getSoDienThoaiNhaCungCap());
-                object.setZalo(quanLyNhaCungCapDTO.getZalo());
-                object.setEmail(quanLyNhaCungCapDTO.getEmail());
-                object.setFlag(quanLyNhaCungCapDTO.getFlag());
-                object.setNgayChinhSua(quanLyNhaCungCapDTO.getNgayChinhSua());
-                quanLyNhaCungCapRepository.save(object);
-                result.put("msg","Xóa thành công");
-                result.put("status",true);
-            }else {
-                object.setId(id);
-                object.setTenNhaCungCap(quanLyNhaCungCapDTO.getTenNhaCungCap());
-                object.setDiaChiNhaCungCap(quanLyNhaCungCapDTO.getDiaChiNhaCungCap());
-                object.setMa(quanLyNhaCungCapDTO.getMa());
-                object.setMstNhaCungCap(quanLyNhaCungCapDTO.getMstNhaCungCap());
-                object.setSoDienThoaiNhaCungCap(quanLyNhaCungCapDTO.getSoDienThoaiNhaCungCap());
-                object.setZalo(quanLyNhaCungCapDTO.getZalo());
-                object.setEmail(quanLyNhaCungCapDTO.getEmail());
-                object.setNgayChinhSua(quanLyNhaCungCapDTO.getNgayChinhSua());
-                quanLyNhaCungCapRepository.save(object);
-                result.put("result",object);
-                result.put("msg","sửa thành công");
-                result.put("status",true);
-            }
 
-        }catch (Exception e){
-            result.put("msg","Sửa thất bại");
-            result.put("status",false);
+            object.setTenNhaCungCap(quanLyNhaCungCapDTO.getTenNhaCungCap());
+            object.setDiaChiNhaCungCap(quanLyNhaCungCapDTO.getDiaChiNhaCungCap());
+            object.setMa(quanLyNhaCungCapDTO.getMa());
+            object.setMstNhaCungCap(quanLyNhaCungCapDTO.getMstNhaCungCap());
+            object.setSoDienThoaiNhaCungCap(quanLyNhaCungCapDTO.getSoDienThoaiNhaCungCap());
+            object.setZalo(quanLyNhaCungCapDTO.getZalo());
+            object.setEmail(quanLyNhaCungCapDTO.getEmail());
+            object.setNgayChinhSua(quanLyNhaCungCapDTO.getNgayChinhSua());
+            quanLyNhaCungCapRepository.save(object);
+            result.put("result", object);
+            result.put("msg", "sửa thành công");
+            result.put("status", true);
+
+        } catch (Exception e) {
+            result.put("msg", "Sửa thất bại");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> fetchById(Long id) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyNhaCungCap quanLyNhaCungCap = quanLyNhaCungCapRepository.findById(id).orElse(null);
         QuanLyNhaCungCapDTO quanLyNhaCungCapDTO = new QuanLyNhaCungCapDTO();
         try {
-            if(quanLyNhaCungCap != null){
+            if (quanLyNhaCungCap != null) {
                 quanLyNhaCungCapDTO.setId(quanLyNhaCungCap.getId());
                 quanLyNhaCungCapDTO.setMa(quanLyNhaCungCap.getMa());
                 quanLyNhaCungCapDTO.setTenNhaCungCap(quanLyNhaCungCap.getTenNhaCungCap());
@@ -123,27 +107,27 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
                 quanLyNhaCungCapDTO.setNgayChinhSua(quanLyNhaCungCap.getNgayChinhSua());
                 quanLyNhaCungCapDTO.setNgayTaoBanGhi(quanLyNhaCungCap.getNgayTaoBanGhi());
 
-                result.put("result",quanLyNhaCungCapDTO);
-                result.put("status",true);
-            }else {
-                result.put("result",null);
-                result.put("status",false);
+                result.put("result", quanLyNhaCungCapDTO);
+                result.put("status", true);
+            } else {
+                result.put("result", null);
+                result.put("status", false);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("result",null);
-            result.put("status",false);
+            result.put("result", null);
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> getAll() {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         try {
             List<QuanLyNhaCungCap> quanLyNhaCungCapList = quanLyNhaCungCapRepository.findAll();
             List<QuanLyNhaCungCapDTO> quanLyNhaCungCapDTOS = new ArrayList<>();
-            for(QuanLyNhaCungCap quanLyNhaCungCap:quanLyNhaCungCapList){
+            for (QuanLyNhaCungCap quanLyNhaCungCap : quanLyNhaCungCapList) {
                 QuanLyNhaCungCapDTO quanLyNhaCungCapDTO = new QuanLyNhaCungCapDTO();
                 quanLyNhaCungCapDTO.setId(quanLyNhaCungCap.getId());
                 quanLyNhaCungCapDTO.setMa(quanLyNhaCungCap.getMa());
@@ -157,22 +141,33 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
                 quanLyNhaCungCapDTO.setNgayTaoBanGhi(quanLyNhaCungCap.getNgayTaoBanGhi());
                 quanLyNhaCungCapDTO.setNgayChinhSua(quanLyNhaCungCap.getNgayChinhSua());
                 quanLyNhaCungCapDTO.setFlag(quanLyNhaCungCap.getFlag());
-                if(quanLyNhaCungCap.getFlag() != null && quanLyNhaCungCap.getFlag()){
+                if (quanLyNhaCungCap.getFlag() != null && quanLyNhaCungCap.getFlag()) {
                     quanLyNhaCungCapDTOS.add(quanLyNhaCungCapDTO);
                 }
             }
             result.put("result", quanLyNhaCungCapDTOS);
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("msg", "Lay danh sach  that bai");
-            result.put("status",false);
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Lấy danh sách thất bại !");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> delete(Long[] listIds) {
-        return null;
+
+        Map<String, Object> result = new HashMap<>();
+
+        for (int i = 0; i < listIds.length; i++) {
+            QuanLyNhaCungCap quanLyNhaCungCap = quanLyNhaCungCapRepository.findById(listIds[i]).orElse(null);
+            quanLyNhaCungCap.setFlag(false);
+            quanLyNhaCungCapRepository.save(quanLyNhaCungCap);
+            result.put("listId", listIds);
+            result.put("msg", "Xoá thành công !");
+            result.put("status", true);
+        }
+        return result;
     }
 
     @Override

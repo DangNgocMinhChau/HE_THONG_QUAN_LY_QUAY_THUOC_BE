@@ -1,0 +1,25 @@
+package com.example.quanlyquanthuoc.services.danhmuc.tag;
+
+
+import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
+
+import java.util.Map;
+
+public interface TagService {
+    Tag findById(Long tagId);
+
+    public Map<String, Object> create(TagDto tagDto);
+
+    public Map<String, Object> update(Long id, TagDto tagDto);
+
+    public Map<String, Object> fetchById(Long id);
+
+    public Map<String, Object> getAll();
+    public Map<String, Object> getAllSelect();
+
+    public Map<String, Object> delete(Long[] listIds);
+
+    public Map<String, Object> deleteVinhVien(Long[] listIds);
+
+}

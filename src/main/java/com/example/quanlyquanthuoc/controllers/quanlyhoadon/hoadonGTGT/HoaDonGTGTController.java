@@ -14,6 +14,7 @@ public class HoaDonGTGTController {
 
     @Autowired
     HoaDonGTGTService hoaDonGTGTService;
+
     @PostMapping()
     public Map<String, Object> create(@RequestBody HoaDonGTGTDTO hoaDonGTGTDTO) {
         return hoaDonGTGTService.create(hoaDonGTGTDTO);
@@ -39,19 +40,19 @@ public class HoaDonGTGTController {
         return hoaDonGTGTService.phucHoiHoaDonGTGTDaXoa(id);
     }
 
-    @GetMapping(value="/getAllHoaDonGTGTByDate")
-    public Map<String,Object> getAllHoaDonGTGTByDate(@RequestParam String date){
+    @GetMapping(value = "/getAllHoaDonGTGTByDate")
+    public Map<String, Object> getAllHoaDonGTGTByDate(@RequestParam String date) {
         return hoaDonGTGTService.getAllHoaDonGTGTByDate(date);
     }
 
-    @GetMapping(value="/getAllHoaDonGTGTDaXoa")
-    public Map<String,Object> getAllHoaDonGTGTDaXoa(){
+    @GetMapping(value = "/getAllHoaDonGTGTDaXoa")
+    public Map<String, Object> getAllHoaDonGTGTDaXoa() {
         return hoaDonGTGTService.getAllHoaDonGTGTDaXoa();
     }
 
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> fetchById(@PathVariable Long id ){
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> fetchById(@PathVariable Long id) {
         return hoaDonGTGTService.fetchById(id);
     }
 

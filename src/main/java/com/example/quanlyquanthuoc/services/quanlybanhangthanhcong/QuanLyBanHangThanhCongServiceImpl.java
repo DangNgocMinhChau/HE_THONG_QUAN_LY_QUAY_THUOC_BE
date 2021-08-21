@@ -220,7 +220,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                 thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                 thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                 thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                 thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                 thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                 thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -311,7 +310,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -409,7 +407,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -535,7 +532,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -626,7 +622,6 @@ public class QuanLyBanHangThanhCongServiceImpl implements QuanLyBanHangThanhCong
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());

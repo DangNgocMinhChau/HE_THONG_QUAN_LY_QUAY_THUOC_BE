@@ -19,7 +19,7 @@ public class QuanLyBaoCaoController {
     QuanLyBaoCaoService quanLyBaoCaoService;
 
     @GetMapping("/baocaotheonam")
-    public Map<String,Object> getBaoCaoThuocTheoNam(){
+    public Map<String, Object> getBaoCaoThuocTheoNam() {
         return quanLyBaoCaoService.getBaoCaoThuocTheoNam();
     }
 }

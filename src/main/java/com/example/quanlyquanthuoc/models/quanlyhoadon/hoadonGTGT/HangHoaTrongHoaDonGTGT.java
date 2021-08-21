@@ -22,7 +22,7 @@ public class HangHoaTrongHoaDonGTGT {
     private Boolean flag;
 
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name="hoadongtgt_id",nullable = false)
+    @JoinColumn(name = "hoadongtgt_id", nullable = false)
     private HoaDonGTGT hoaDonGTGT;
 
     public HangHoaTrongHoaDonGTGT() {

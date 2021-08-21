@@ -7,67 +7,67 @@ import javax.persistence.*;
 @Entity
 @Table(name = "files")
 public class FileDB {
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
-  private String id;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
-  private String name;
+    private String name;
 
-  private String type;
+    private String type;
 
-  @Lob
-  private byte[] data;
+    @Lob
+    private byte[] data;
 
-  private String path;
+    private String path;
 
-  public FileDB() {
-  }
+    public FileDB() {
+    }
 
-  public FileDB(String name, String type, byte[] data, String path) {
-    this.name = name;
-    this.type = type;
-    this.data = data;
-    this.path = path;
-  }
+    public FileDB(String name, String type, byte[] data, String path) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+        this.path = path;
+    }
 
-  public String getId() {
-    return id;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getType() {
-    return type;
-  }
+    public String getType() {
+        return type;
+    }
 
-  public void setType(String type) {
-    this.type = type;
-  }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-  public byte[] getData() {
-    return data;
-  }
+    public byte[] getData() {
+        return data;
+    }
 
-  public void setData(byte[] data) {
-    this.data = data;
-  }
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public String getPath() {
-    return path;
-  }
+    public String getPath() {
+        return path;
+    }
 
-  public void setPath(String path) {
-    this.path = path;
-  }
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.quanlyquanthuoc.models.quanlytaikhoan;
 
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,7 +27,7 @@ public class QuanLyTaiKhoan {
     private Integer soLanDangNhapSai;
 
     @ManyToOne
-    @JoinColumn(name = "quyen_id",nullable = false)
+    @JoinColumn(name = "quyen_id", nullable = false)
     private Quyen quyen;
 
     public QuanLyTaiKhoan() {

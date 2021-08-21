@@ -37,10 +37,8 @@ public interface SanPhamThanhCongRepository extends JpaRepository<SanPhamThanhCo
 //            " sum(so_luong_mua) " +
             "FROM quanlynhathuoc.san_pham_thanh_cong  where khothuoc_id LIKE CONCAT('%',:id,'%')" +
             "and " +
-            "ngay_tao_ban_ghi like CONCAT('%',:nam,'%')" +  "group by khothuoc_id", nativeQuery = true)
-    SanPhamThanhCong  getBaoCaoThuocTheoNam(String id,String nam);
-
-
+            "ngay_tao_ban_ghi like CONCAT('%',:nam,'%')" + "group by khothuoc_id", nativeQuery = true)
+    SanPhamThanhCong getBaoCaoThuocTheoNam(String id, String nam);
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.quanlyquanthuoc.models.quanlynhacungcap;
+package com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap;
 
 public class QuanLyNhaCungCapDTO {
     private Long id;

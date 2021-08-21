@@ -19,46 +19,46 @@ public class SanPhamThanhCongController {
     private SanPhamThanhCongService sanPhamThanhCongService;
 
     @PostMapping()
-    public Map<String,Object> create (@RequestBody SanPhamDTO sanPhamDTO){
+    public Map<String, Object> create(@RequestBody SanPhamDTO sanPhamDTO) {
         return sanPhamThanhCongService.create(sanPhamDTO);
     }
 
     @GetMapping()
-    public Map<String,Object> getAll () {
+    public Map<String, Object> getAll() {
         return sanPhamThanhCongService.getAll();
     }
 
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> getById (@PathVariable Long id) {
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> getById(@PathVariable Long id) {
         return sanPhamThanhCongService.fetchById(id);
     }
 
 
     @DeleteMapping()
-    public Map<String,Object> delete (@RequestBody Long[] ids) {
+    public Map<String, Object> delete(@RequestBody Long[] ids) {
         return sanPhamThanhCongService.delete(ids);
     }
 
-    @DeleteMapping(value="/{id}")
-    public void deleteById (@PathVariable Long id) {
+    @DeleteMapping(value = "/{id}")
+    public void deleteById(@PathVariable Long id) {
         sanPhamThanhCongService.deleteById(id);
     }
 
 
-    @PutMapping(value="/{id}")
-    public Map<String,Object> update (@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
-        return sanPhamThanhCongService.update(id,sanPhamDTO);
+    @PutMapping(value = "/{id}")
+    public Map<String, Object> update(@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
+        return sanPhamThanhCongService.update(id, sanPhamDTO);
     }
 
-    @GetMapping(value="/getAllSanPhamByIdHoaDon/{id}")
-    public  Map<String,Object> getAllHoaDonByKhachHang(@PathVariable Long id){
+    @GetMapping(value = "/getAllSanPhamByIdHoaDon/{id}")
+    public Map<String, Object> getAllHoaDonByKhachHang(@PathVariable Long id) {
         return sanPhamThanhCongService.getAllSanPhamByIdHoaDon(id);
     }
 
-    @PutMapping(value="/updatesanphamtronghoadon/{id}")
-    public Map<String,Object> updateSanPhamTrongHoaDon (@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
-        return sanPhamThanhCongService.updateSanPhamTrongHoaDon(id,sanPhamDTO);
+    @PutMapping(value = "/updatesanphamtronghoadon/{id}")
+    public Map<String, Object> updateSanPhamTrongHoaDon(@PathVariable Long id, @RequestBody SanPhamDTO sanPhamDTO) {
+        return sanPhamThanhCongService.updateSanPhamTrongHoaDon(id, sanPhamDTO);
     }
 
 

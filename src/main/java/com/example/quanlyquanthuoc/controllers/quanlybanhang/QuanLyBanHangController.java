@@ -1,7 +1,6 @@
 package com.example.quanlyquanthuoc.controllers.quanlybanhang;
 
 
-
 import com.example.quanlyquanthuoc.models.quanlybanhang.QuanLyBanHangDTO;
 import com.example.quanlyquanthuoc.models.quanlybanhang.SanPhamDTO;
 import com.example.quanlyquanthuoc.repositorys.quanlybanhang.QuanLyBanHangRepository;
@@ -54,14 +53,13 @@ public class QuanLyBanHangController {
     }
 
 
-
-    @GetMapping(value="/getAllSanPhamByIdBanHang/{id}")
-    public List<SanPhamDTO> getQuanLyBanHangById(@PathVariable Long id){
+    @GetMapping(value = "/getAllSanPhamByIdBanHang/{id}")
+    public List<SanPhamDTO> getQuanLyBanHangById(@PathVariable Long id) {
         return sanPhamService.getAllSanPhamById(id);
     }
 
-    @GetMapping(value="/{id}")
-    public Map<String,Object> getQuanLyTaiKhoanById(@PathVariable Long id){
+    @GetMapping(value = "/{id}")
+    public Map<String, Object> getQuanLyTaiKhoanById(@PathVariable Long id) {
         return quanLyBanHangService.fetchById(id);
     }
 }

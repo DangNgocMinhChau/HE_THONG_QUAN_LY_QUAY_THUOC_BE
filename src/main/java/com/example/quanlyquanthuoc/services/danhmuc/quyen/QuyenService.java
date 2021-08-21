@@ -1,7 +1,7 @@
-package com.example.quanlyquanthuoc.services.quanlytaikhoan;
+package com.example.quanlyquanthuoc.services.danhmuc.quyen;
 
-import com.example.quanlyquanthuoc.models.quanlytaikhoan.Quyen;
-import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuyenDto;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenDto;
 
 import java.util.Map;
 
@@ -15,6 +15,9 @@ public interface QuyenService {
     public Map<String, Object> fetchById(Long id);
 
     public Map<String, Object> getAll();
+
+    public Map<String, Object> getAllSelect();
+
 
     public Map<String, Object> delete(Long[] listIds);
 

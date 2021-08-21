@@ -1,8 +1,9 @@
-package com.example.quanlyquanthuoc.services.quanlytaikhoan;
+package com.example.quanlyquanthuoc.services.danhmuc.quyen;
 
-import com.example.quanlyquanthuoc.models.quanlytaikhoan.Quyen;
-import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuyenDto;
-import com.example.quanlyquanthuoc.repositorys.quanlytaikhoan.QuyenRepository;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenDto;
+import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenSelect;
+import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,6 +110,32 @@ public class QuyenServiceImpl implements QuyenService {
         }
         return result;
     }
+
+    @Override
+    public Map<String, Object> getAllSelect() {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            List<Quyen> quyenList = quyenRepository.findAll();
+            List<QuyenSelect> quyenDtoList = new ArrayList<>();
+            for (Quyen quyen : quyenList) {
+                QuyenSelect quyenSelect = new QuyenSelect();
+                quyenSelect.setId(quyen.getId());
+                quyenSelect.setValue(quyen.getMa());
+                quyenSelect.setTen(quyen.getTen());
+                if (quyen.getFlag()) {
+                    quyenDtoList.add(quyenSelect);
+                }
+            }
+            result.put("result", quyenDtoList);
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Lấy danh sách thất bại !");
+            result.put("status", false);
+        }
+        return result;
+    }
+
     @Override
     public Map<String, Object> delete(Long[] listIds) {
         Map<String, Object> result = new HashMap<>();

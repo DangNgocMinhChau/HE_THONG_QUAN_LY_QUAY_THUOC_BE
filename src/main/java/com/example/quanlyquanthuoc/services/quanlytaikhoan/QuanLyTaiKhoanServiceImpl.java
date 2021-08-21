@@ -4,7 +4,8 @@ package com.example.quanlyquanthuoc.services.quanlytaikhoan;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoanDTO;
 import com.example.quanlyquanthuoc.repositorys.quanlytaikhoan.QuanLyTaiKhoanRepository;
-import com.example.quanlyquanthuoc.repositorys.quanlytaikhoan.QuyenRepository;
+import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
+import com.example.quanlyquanthuoc.services.danhmuc.quyen.QuyenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +47,10 @@ public class QuanLyTaiKhoanServiceImpl implements QuanLyTaiKhoanService {
             quanLyTaiKhoan.setNgayChinhSua(quanLyTaiKhoanDTO.getNgayChinhSua());
             quanLyTaiKhoan.setQuyen(quyenService.findById(quanLyTaiKhoanDTO.getQuyenId()));
             QuanLyTaiKhoan taiKhoan = quanLyTaiKhoanRepository.getAccoutByTenDangNhap(quanLyTaiKhoanDTO.getTenDangNhap());
-            if(taiKhoan != null && taiKhoan.getTenDangNhap().equals(quanLyTaiKhoanDTO.getTenDangNhap())){
+            if (taiKhoan != null && taiKhoan.getTenDangNhap().equals(quanLyTaiKhoanDTO.getTenDangNhap())) {
                 result.put("msg", "Tài khoản đã tồn tại!");
                 result.put("status", false);
-            }else{
+            } else {
                 quanLyTaiKhoanRepository.save(quanLyTaiKhoan);
                 resultUpdate.setId(quanLyTaiKhoan.getId());
                 resultUpdate.setTenNguoiDung(quanLyTaiKhoanDTO.getTenNguoiDung());

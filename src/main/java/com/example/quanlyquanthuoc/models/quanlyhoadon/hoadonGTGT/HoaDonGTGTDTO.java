@@ -27,6 +27,7 @@ public class HoaDonGTGTDTO {
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
+
     public HoaDonGTGTDTO() {
     }
 

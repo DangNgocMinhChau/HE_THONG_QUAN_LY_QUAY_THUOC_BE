@@ -15,12 +15,12 @@ public class SanPhamThanhCong {
     private Long soLuongMua;
 
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name="quanlybanhangthanhcong_id",nullable = false)
+    @JoinColumn(name = "quanlybanhangthanhcong_id", nullable = false)
     private QuanLyBanHangThanhCong quanLyBanHangThanhCong;
 
 
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name="khothuoc_id",nullable = false)
+    @JoinColumn(name = "khothuoc_id", nullable = false)
     private KhoThuoc khoThuoc;
 
     public Long getId() {

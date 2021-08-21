@@ -1,12 +1,6 @@
-package com.example.quanlyquanthuoc.models.quanlytaikhoan;
+package com.example.quanlyquanthuoc.models.danhmuc.tag;
 
-import javax.persistence.*;
-import java.util.Set;
-
-@Entity
-public class Quyen {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+public class TagDto {
     private Long id;
     private String ma;
     private String ten;
@@ -14,16 +8,7 @@ public class Quyen {
     private String ngayChinhSua;
     private Boolean flag;
 
-    @OneToMany(mappedBy = "quyen")
-    private Set<QuanLyTaiKhoan> quanLyTaiKhoans;
-
-    public Quyen() {
-    }
-
-    public Quyen(String ma, String ten, Set<QuanLyTaiKhoan> quanLyTaiKhoans) {
-        this.ma = ma;
-        this.ten = ten;
-        this.quanLyTaiKhoans = quanLyTaiKhoans;
+    public TagDto() {
     }
 
     public String getNgayTaoBanGhi() {
@@ -72,13 +57,5 @@ public class Quyen {
 
     public void setTen(String ten) {
         this.ten = ten;
-    }
-
-    public Set<QuanLyTaiKhoan> getQuanLyTaiKhoans() {
-        return quanLyTaiKhoans;
-    }
-
-    public void setQuanLyTaiKhoans(Set<QuanLyTaiKhoan> quanLyTaiKhoans) {
-        this.quanLyTaiKhoans = quanLyTaiKhoans;
     }
 }

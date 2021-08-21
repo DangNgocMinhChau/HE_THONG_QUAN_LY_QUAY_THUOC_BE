@@ -41,10 +41,10 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
     @Override
     public Map<String, Object> create(QuanLyBanHangDTO quanLyBanHangDTO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyBanHangDTO resultCreate = new QuanLyBanHangDTO();
-        try{
-                QuanLyBanHang quanLyBanHang = new QuanLyBanHang();
+        try {
+            QuanLyBanHang quanLyBanHang = new QuanLyBanHang();
             quanLyBanHang.setTenKhachHang(quanLyBanHangDTO.getTenKhachHang());
             quanLyBanHang.setSoDienThoaiKhachHang(quanLyBanHangDTO.getSoDienThoaiKhachHang());
             quanLyBanHang.setIdKhachHang(quanLyBanHangDTO.getIdKhachHang());
@@ -68,15 +68,15 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
             resultCreate.setTienNhan(quanLyBanHang.getTienNhan());
 
 
-            ObjectMapper mapper =new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper();
             SanPhamDTO sanPhamDTO = new SanPhamDTO();
             for (int i = 0; i < quanLyBanHangDTO.getSanPham().size(); i++) {
-                String jsonString = mapper.writeValueAsString( quanLyBanHangDTO.getSanPham().get(i));
+                String jsonString = mapper.writeValueAsString(quanLyBanHangDTO.getSanPham().get(i));
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String idThuoc = jsonObject.get("idThuoc").toString();
                 String soLuongMua = jsonObject.get("soLuongMua").toString();
-                sanPhamDTO.setKhoThuocId(Long.parseLong( idThuoc));
-                sanPhamDTO.setSoLuongMua(Long.parseLong( soLuongMua));
+                sanPhamDTO.setKhoThuocId(Long.parseLong(idThuoc));
+                sanPhamDTO.setSoLuongMua(Long.parseLong(soLuongMua));
                 sanPhamDTO.setQuanLyBanHangId(quanLyBanHang.getId());
                 sanPhamDTO.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
                 sanPhamDTO.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
@@ -113,7 +113,7 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
             // Sản phẩm
             List arr = new ArrayList();
-            for (int i = 0; i <sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size() ; i++) {
+            for (int i = 0; i < sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size(); i++) {
                 ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
 
                 thuocDaMuaDTO.setSoLuongMua(sanPhamRepository.findBySanPham(quanLyBanHang.getId()).get(i).getSoLuongMua());
@@ -133,7 +133,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                 thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                 thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                 thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                 thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                 thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -146,12 +145,12 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
             resultCreate.setThongTinNguoiMua(thongTinNguoiMua);
 
 
-            result.put("result",resultCreate);
-            result.put("msg","Thêm mói thành công");
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("msg","Thêm mới thất bại");
-            result.put("status",false);
+            result.put("result", resultCreate);
+            result.put("msg", "Thêm mói thành công");
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Thêm mới thất bại");
+            result.put("status", false);
         }
 
         return result;
@@ -159,7 +158,7 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
     @Override
     public Map<String, Object> update(Long id, QuanLyBanHangDTO quanLyBanHangDTO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyBanHangDTO resultUpdate = new QuanLyBanHangDTO();
         try {
             QuanLyBanHang object = quanLyBanHangRepository.findById(id).get();
@@ -175,7 +174,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
             quanLyBanHangRepository.save(object);
 
 
-
             resultUpdate.setId(quanLyBanHangDTO.getId());
             resultUpdate.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
             resultUpdate.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
@@ -186,10 +184,9 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
             resultUpdate.setIdKhachHang(quanLyBanHangDTO.getIdKhachHang());
             resultUpdate.setTienNhan(quanLyBanHangDTO.getTienNhan());
 
-            ObjectMapper mapper =new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper();
             SanPhamDTO sanPhamDTO = new SanPhamDTO();
             List idSanPhamDangCo = new ArrayList();
-
 
 
             for (int i = 0; i < quanLyBanHangDTO.getSanPham().size(); i++) {
@@ -198,19 +195,19 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 String idThuoc = jsonObject.get("idThuoc").toString();
                 String soLuongMua = jsonObject.get("soLuongMua").toString();
                 String idSanPham = jsonObject.get("id").toString();
-                if(!idSanPham.equals("null")){
+                if (!idSanPham.equals("null")) {
                     idSanPhamDangCo.add(Long.parseLong(idSanPham));
-                    sanPhamDTO.setKhoThuocId(Long.parseLong( idThuoc));
-                    sanPhamDTO.setSoLuongMua(Long.parseLong( soLuongMua));
+                    sanPhamDTO.setKhoThuocId(Long.parseLong(idThuoc));
+                    sanPhamDTO.setSoLuongMua(Long.parseLong(soLuongMua));
                     sanPhamDTO.setQuanLyBanHangId(object.getId());
                     sanPhamDTO.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
                     sanPhamDTO.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
                     sanPhamDTO.setFlag(object.getFlag());
-                    sanPhamService.update(Long.parseLong( idSanPham),sanPhamDTO);
+                    sanPhamService.update(Long.parseLong(idSanPham), sanPhamDTO);
 
-                }else {
-                    sanPhamDTO.setKhoThuocId(Long.parseLong( idThuoc));
-                    sanPhamDTO.setSoLuongMua(Long.parseLong( soLuongMua));
+                } else {
+                    sanPhamDTO.setKhoThuocId(Long.parseLong(idThuoc));
+                    sanPhamDTO.setSoLuongMua(Long.parseLong(soLuongMua));
                     sanPhamDTO.setQuanLyBanHangId(object.getId());
                     sanPhamDTO.setNgayTaoBanGhi(quanLyBanHangDTO.getNgayTaoBanGhi());
                     sanPhamDTO.setNgayChinhSua(quanLyBanHangDTO.getNgayChinhSua());
@@ -219,7 +216,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 }
 
             }
-
 
 
             // Thông tin tài khoản
@@ -251,7 +247,7 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
 //             Sản phẩm
             List arr = new ArrayList();
-            for (int i = 0; i <sanPhamRepository.findBySanPham(quanLyBanHangDTO.getId()).size() ; i++) {
+            for (int i = 0; i < sanPhamRepository.findBySanPham(quanLyBanHangDTO.getId()).size(); i++) {
                 ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
 
                 thuocDaMuaDTO.setSoLuongMua(sanPhamRepository.findBySanPham(quanLyBanHangDTO.getId()).get(i).getSoLuongMua());
@@ -271,7 +267,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                 thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                 thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                 thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                 thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                 thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -288,23 +283,23 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
             resultUpdate.setSanPham(arr);
             resultUpdate.setThongTinNguoiMua(thongTinNguoiMua);
 
-            result.put("result",resultUpdate);
-            result.put("msg","sửa thành công");
-            result.put("status",true);
-        }catch (Exception e){
-            result.put("msg","Sửa thất bại");
-            result.put("status",false);
+            result.put("result", resultUpdate);
+            result.put("msg", "sửa thành công");
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Sửa thất bại");
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> fetchById(Long id) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         QuanLyBanHang quanLyBanHang = quanLyBanHangRepository.findById(id).orElse(null);
         QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();
         try {
-            if(quanLyBanHang != null){
+            if (quanLyBanHang != null) {
                 quanLyBanHangDTO.setId(quanLyBanHang.getId());
                 quanLyBanHangDTO.setNgayChinhSua(quanLyBanHang.getNgayChinhSua());
                 quanLyBanHangDTO.setNgayTaoBanGhi(quanLyBanHang.getNgayTaoBanGhi());
@@ -344,7 +339,7 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
                 // Sản phẩm
                 List arr = new ArrayList();
-                for (int i = 0; i <sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size() ; i++) {
+                for (int i = 0; i < sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size(); i++) {
                     ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
 
                     thuocDaMuaDTO.setSoLuongMua(sanPhamRepository.findBySanPham(quanLyBanHang.getId()).get(i).getSoLuongMua());
@@ -364,7 +359,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -377,29 +371,29 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                 quanLyBanHangDTO.setThongTinNguoiMua(thongTinNguoiMua);
 
 
-                result.put("result",quanLyBanHangDTO);
-                result.put("status",true);
-            }else {
-                result.put("result",null);
-                result.put("status",false);
+                result.put("result", quanLyBanHangDTO);
+                result.put("status", true);
+            } else {
+                result.put("result", null);
+                result.put("status", false);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("result",null);
-            result.put("status",false);
+            result.put("result", null);
+            result.put("status", false);
         }
         return result;
     }
 
     @Override
     public Map<String, Object> getAll() {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         try {
             List<QuanLyBanHang> quanLyBanHangList = quanLyBanHangRepository.findAll();
             List<QuanLyBanHangDTO> quanLyBanHangDTOS = new ArrayList<>();
 
 
-            for(QuanLyBanHang quanLyBanHang : quanLyBanHangList){
+            for (QuanLyBanHang quanLyBanHang : quanLyBanHangList) {
                 QuanLyBanHangDTO quanLyBanHangDTO = new QuanLyBanHangDTO();
                 quanLyBanHangDTO.setId(quanLyBanHang.getId());
                 quanLyBanHangDTO.setFlag(quanLyBanHang.getFlag());
@@ -438,7 +432,7 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
                 // Sản phẩm
                 List arr = new ArrayList();
-                for (int i = 0; i <sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size() ; i++) {
+                for (int i = 0; i < sanPhamRepository.findBySanPham(quanLyBanHang.getId()).size(); i++) {
                     ThuocDaMuaDTO thuocDaMuaDTO = new ThuocDaMuaDTO();
 
                     thuocDaMuaDTO.setSoLuongMua(sanPhamRepository.findBySanPham(quanLyBanHang.getId()).get(i).getSoLuongMua());
@@ -458,7 +452,6 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
                     thuocDaMuaDTO.setNgayTaoBanGhi(khoThuocItem.getNgayTaoBanGhi());
                     thuocDaMuaDTO.setNguoiTaoId(khoThuocItem.getNguoiTaoId());
                     thuocDaMuaDTO.setHanSuDungThuoc(khoThuocItem.getHanSuDungThuoc());
-                    thuocDaMuaDTO.setPhanLoaiThuoc(khoThuocItem.getPhanLoaiThuoc());
                     thuocDaMuaDTO.setKhuVuc(khoThuocItem.getKhuVuc());
                     thuocDaMuaDTO.setMa(khoThuocItem.getMa());
                     thuocDaMuaDTO.setIdThuoc(khoThuocItem.getId());
@@ -473,10 +466,10 @@ public class QuanLyBanHangServiceImpl implements QuanLyBanHangService {
 
             }
             result.put("result", quanLyBanHangDTOS);
-            result.put("status",true);
-        }catch (Exception e){
+            result.put("status", true);
+        } catch (Exception e) {
             result.put("msg", "Lay danh sach  that bai");
-            result.put("status",false);
+            result.put("status", false);
         }
         return result;
     }
