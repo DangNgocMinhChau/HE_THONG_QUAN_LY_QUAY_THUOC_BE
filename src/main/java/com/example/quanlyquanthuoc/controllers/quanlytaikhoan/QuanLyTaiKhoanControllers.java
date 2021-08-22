@@ -20,8 +20,8 @@ public class QuanLyTaiKhoanControllers {
         return quanLyTaiKhoanService.create(quanLyTaiKhoanDTO);
     }
 
-    @GetMapping()
-    public Map<String, Object> getDanhSachThuoc() {
+    @GetMapping("/find")
+    public Map<String, Object> getAll() {
         return quanLyTaiKhoanService.getAllTaiKhoan();
     }
 

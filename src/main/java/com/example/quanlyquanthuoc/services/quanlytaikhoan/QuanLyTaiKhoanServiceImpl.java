@@ -43,6 +43,7 @@ public class QuanLyTaiKhoanServiceImpl implements QuanLyTaiKhoanService {
             quanLyTaiKhoan.setFlag(quanLyTaiKhoanDTO.getFlag());
             quanLyTaiKhoan.setLockUser(quanLyTaiKhoanDTO.getLockUser());
             quanLyTaiKhoan.setImg(quanLyTaiKhoanDTO.getImg());
+            quanLyTaiKhoan.setFlag(true);
             quanLyTaiKhoan.setNgayTaoBanGhi(quanLyTaiKhoanDTO.getNgayTaoBanGhi());
             quanLyTaiKhoan.setNgayChinhSua(quanLyTaiKhoanDTO.getNgayChinhSua());
             quanLyTaiKhoan.setQuyen(quyenService.findById(quanLyTaiKhoanDTO.getQuyenId()));
