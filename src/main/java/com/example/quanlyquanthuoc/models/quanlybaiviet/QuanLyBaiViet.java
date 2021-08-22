@@ -7,11 +7,13 @@ public class QuanLyBaiViet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length=1000)
+    @Column(name="noiDung" ,columnDefinition = "LONGTEXT")
     private String noiDung;
+    @Column(name="tag" ,columnDefinition = "LONGTEXT")
     private String tag;
+    @Column(name="tieuDe" ,columnDefinition = "LONGTEXT")
     private String tieuDe;
-    @Column(length=1000)
+    @Column(name="file" ,columnDefinition = "LONGTEXT")
     private String file;
     private Long nguoiTaoId;
     private String ngayTaoBanGhi;
