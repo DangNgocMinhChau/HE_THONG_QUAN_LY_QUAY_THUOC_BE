@@ -1,6 +1,8 @@
 package com.example.quanlyquanthuoc.services.quanlykhothuoc;
 
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCapDTO;
 import com.example.quanlyquanthuoc.models.quanlyfiles.ResponseFile;
 import com.example.quanlyquanthuoc.models.quanlyfiles.FileDB;
 import com.example.quanlyquanthuoc.models.quanlykhothuoc.KhoThuoc;
@@ -14,6 +16,8 @@ import com.example.quanlyquanthuoc.services.danhmuc.phanloaithuoc.PhanLoaiThuocS
 import com.example.quanlyquanthuoc.services.danhmuc.quanlynhacungcap.QuanLyNhaCungCapService;
 import com.example.quanlyquanthuoc.services.quanlytaikhoan.QuanLyTaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +41,9 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
 
     @Autowired
     SanPhamThanhCongRepository sanPhamThanhCongRepository;
+
+    @Autowired
+    QuanLyKhoThuocDao quanLyKhoThuocDao;
 
     @Override
     public Map<String, Object> create(KhoThuocDTO khoThuocDTO) {
@@ -754,5 +761,53 @@ public class QuanLyKhoThuocServiceImpl implements QuanLyKhoThuocService {
     @Override
     public KhoThuoc findById(Long id) {
         return quanLyKhoThuocRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String, Object> mapResult = new HashMap<>();
+        try {
+            if (sortData == null) {
+                sortData = "id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null) {
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page, pageSize, quanLyKhoThuocDao.countKhoThuoc(searchString)));
+            }
+
+            List<KhoThuoc> khoThuocList = quanLyKhoThuocDao.getListKhoThuoc(searchString, pageable, sortData);
+            List<KhoThuocDTO> khoThuocDTOS = new ArrayList<KhoThuocDTO>();
+            for (KhoThuoc khoThuoc : khoThuocList) {
+                KhoThuocDTO khoThuocDTO = new KhoThuocDTO();
+                khoThuocDTO.setId(khoThuoc.getId());
+                khoThuocDTO.setMa(khoThuoc.getMa());
+                khoThuocDTO.setTenThuoc(khoThuoc.getTenThuoc());
+                khoThuocDTO.setDonViTinh(khoThuoc.getDonViTinh());
+                khoThuocDTO.setTongTienTruocThue(khoThuoc.getTongTienTruocThue());
+                khoThuocDTO.setPhanTramThue(khoThuoc.getPhanTramThue());
+                khoThuocDTO.setChietKhau(khoThuoc.getChietKhau());
+                khoThuocDTO.setGiaTien(khoThuoc.getGiaTien());
+                khoThuocDTO.setThanhToan(khoThuoc.getThanhToan());
+                khoThuocDTO.setSoLuongDaBan(khoThuoc.getSoLuongDaBan());
+                khoThuocDTO.setSoLuongNhap(khoThuoc.getSoLuongNhap());
+                khoThuocDTO.setSoLuongMua(khoThuoc.getSoLuongMua());
+                khoThuocDTO.setKhuVuc(khoThuoc.getKhuVuc());
+                khoThuocDTO.setHanSuDungThuoc(khoThuoc.getHanSuDungThuoc());
+                khoThuocDTO.setNguoiTaoId(khoThuoc.getNguoiTaoId());
+
+                khoThuocDTOS.add(khoThuocDTO);
+            }
+            mapResult.put("result", khoThuocDTOS);
+            mapResult.put("status", true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mapResult.put("result", null);
+            mapResult.put("status", false);
+            mapResult.put("msg", "Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }

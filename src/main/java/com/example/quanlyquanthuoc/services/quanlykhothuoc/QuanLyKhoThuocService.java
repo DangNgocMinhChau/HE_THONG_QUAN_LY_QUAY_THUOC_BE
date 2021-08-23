@@ -28,4 +28,7 @@ public interface QuanLyKhoThuocService {
     public Map<String, Object> getTop10thuocBanChay();
 
     KhoThuoc findById(Long id);
+
+    public Map<String, Object> findAll(String  searchString,Integer pageSize,Integer page,String sortData);
+
 }

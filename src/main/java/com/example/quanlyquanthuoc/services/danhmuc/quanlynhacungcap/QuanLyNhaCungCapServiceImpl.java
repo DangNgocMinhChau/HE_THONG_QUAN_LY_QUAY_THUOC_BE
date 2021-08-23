@@ -2,11 +2,13 @@ package com.example.quanlyquanthuoc.services.danhmuc.quanlynhacungcap;
 
 
 import com.example.quanlyquanthuoc.common.PaginationDto;
+import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.NhaCungCapSelect;
 import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCap;
 import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCapDTO;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
 import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
 import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagSelect;
 import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quanlynhacungcap.QuanLyNhaCungCapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,6 +184,31 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
     @Override
     public QuanLyNhaCungCap findById(Long id) {
         return quanLyNhaCungCapRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Map<String, Object> getAllSelect() {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            List<QuanLyNhaCungCap> nhaCungCapList = quanLyNhaCungCapRepository.findAll();
+            List<NhaCungCapSelect> nhaCungCapSelects = new ArrayList<>();
+            for (QuanLyNhaCungCap quanLyNhaCungCap : nhaCungCapList) {
+                NhaCungCapSelect nhaCungCapSelect = new NhaCungCapSelect();
+                nhaCungCapSelect.setId(quanLyNhaCungCap.getId());
+                nhaCungCapSelect.setValue(quanLyNhaCungCap.getMa());
+                nhaCungCapSelect.setTen(quanLyNhaCungCap.getTenNhaCungCap());
+                if (quanLyNhaCungCap.getFlag()) {
+                    nhaCungCapSelects.add(nhaCungCapSelect);
+                }
+            }
+            result.put("result", nhaCungCapSelects);
+            result.put("status", true);
+        } catch (Exception e) {
+            result.put("msg", "Lấy danh sách thất bại !");
+            result.put("status", false);
+        }
+        return result;
     }
 
     @Override

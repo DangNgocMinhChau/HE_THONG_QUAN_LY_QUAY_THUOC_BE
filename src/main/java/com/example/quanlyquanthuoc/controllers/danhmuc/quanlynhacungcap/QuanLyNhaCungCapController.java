@@ -48,4 +48,10 @@ public class QuanLyNhaCungCapController {
     ) {
         return quanLyNhaCungCapService.findAll(searchString,pageSize,page,sortData);
     }
+
+
+    @GetMapping("/getAllSelect")
+    public Map<String, Object> getAllSelect() {
+        return quanLyNhaCungCapService.getAllSelect();
+    }
 }
