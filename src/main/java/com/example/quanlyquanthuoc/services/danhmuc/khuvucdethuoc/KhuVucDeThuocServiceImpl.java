@@ -1,13 +1,18 @@
 package com.example.quanlyquanthuoc.services.danhmuc.khuvucdethuoc;
 
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
 import com.example.quanlyquanthuoc.models.danhmuc.khuvucdethuoc.KhuVucDeThuoc;
 import com.example.quanlyquanthuoc.models.danhmuc.khuvucdethuoc.KhuVucDeThuocDTO;
 import com.example.quanlyquanthuoc.models.danhmuc.phanloaithuoc.PhanLoaiThuoc;
 import com.example.quanlyquanthuoc.models.danhmuc.phanloaithuoc.PhanLoaiThuocDTO;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.khuvucdethuoc.KhuVucDeThuocRepository;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.phanloaithuoc.PhanLoaiThuocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +25,8 @@ public class KhuVucDeThuocServiceImpl implements KhuVucDeThuocService {
 
     @Autowired
     KhuVucDeThuocRepository khuVucDeThuocRepository;
+    @Autowired
+    KhuVucDeThuocDao khuVucDeThuocDao;
 
     @Override
     public Map<String, Object> create(KhuVucDeThuocDTO khuVucDeThuocDTO) {
@@ -138,5 +145,39 @@ public class KhuVucDeThuocServiceImpl implements KhuVucDeThuocService {
     @Override
     public KhuVucDeThuoc findById(Long id) {
         return khuVucDeThuocRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String,Object> mapResult = new HashMap<>();
+        try{
+            if(sortData == null){
+                sortData ="id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null){
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page,pageSize,khuVucDeThuocDao.countKhucVucDeThuoc(searchString)));
+            }
+
+            List<KhuVucDeThuoc> khuVucDeThuocList = khuVucDeThuocDao.getListKhuVucDeThuoc(searchString,pageable,sortData);
+            List<KhuVucDeThuocDTO> khuVucDeThuocDTOS = new ArrayList<KhuVucDeThuocDTO>();
+            for(KhuVucDeThuoc khuVucDeThuoc : khuVucDeThuocList){
+                KhuVucDeThuocDTO khuVucDeThuocDTO = new KhuVucDeThuocDTO();
+                khuVucDeThuocDTO.setId(khuVucDeThuoc.getId());
+                khuVucDeThuocDTO.setMa(khuVucDeThuoc.getMa());
+                khuVucDeThuocDTO.setTen(khuVucDeThuoc.getTen());
+                khuVucDeThuocDTOS.add(khuVucDeThuocDTO);
+            }
+            mapResult.put("result",khuVucDeThuocDTOS);
+            mapResult.put("status",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            mapResult.put("result",null);
+            mapResult.put("status",false);
+            mapResult.put("msg","Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }

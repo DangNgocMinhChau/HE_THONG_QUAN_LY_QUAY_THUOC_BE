@@ -19,4 +19,6 @@ public interface QuanLyNhaCungCapService {
 
     QuanLyNhaCungCap findById(Long id);
 
+    public Map<String, Object> findAll(String  searchString,Integer pageSize,Integer page,String sortData);
+
 }

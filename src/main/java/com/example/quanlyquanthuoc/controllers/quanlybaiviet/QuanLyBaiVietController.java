@@ -4,6 +4,7 @@ import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
 import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
 import com.example.quanlyquanthuoc.services.quanlybaiviet.QuanLyBaiVietService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -45,5 +46,15 @@ public class QuanLyBaiVietController {
     public Map<String, Object> getTinTucTheoTag(@RequestParam String tag) {
         return quanLyBaiVietService.getTinTucTheoTag(tag);
     }
+
+    @GetMapping("/find/page")
+    public Map<String, Object> getAllPage( @RequestParam(required = false) String searchString,
+        @RequestParam(required = false) Integer pageSize,
+        @RequestParam(required = false) Integer page,
+        @RequestParam(required = false) String sortData
+    ) {
+       return quanLyBaiVietService.findAll(searchString,pageSize,page,sortData);
+    }
+
 
 }

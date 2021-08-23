@@ -1,13 +1,18 @@
 package com.example.quanlyquanthuoc.services.danhmuc.tag;
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenDto;
 import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
 import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
 import com.example.quanlyquanthuoc.models.danhmuc.tag.TagSelect;
+import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiViet;
+import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.tag.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,6 +22,9 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     TagRepository tagRepository;
+
+    @Autowired
+    TagDao tagDao;
 
     @Override
     public Tag findById(Long tagId) {
@@ -174,5 +182,39 @@ public class TagServiceImpl implements TagService {
             result.put("status", false);
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String,Object> mapResult = new HashMap<>();
+        try{
+            if(sortData == null){
+                sortData ="id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null){
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page,pageSize,tagDao.countTag(searchString)));
+            }
+
+            List<Tag> tagList = tagDao.getListTag(searchString,pageable,sortData);
+            List<TagDto> tagDtos = new ArrayList<TagDto>();
+            for(Tag tag : tagList){
+                TagDto tagDto = new TagDto();
+                tagDto.setId(tag.getId());
+                tagDto.setMa(tag.getMa());
+                tagDto.setTen(tag.getTen());
+                tagDtos.add(tagDto);
+            }
+            mapResult.put("result",tagDtos);
+            mapResult.put("status",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            mapResult.put("result",null);
+            mapResult.put("status",false);
+            mapResult.put("msg","Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }

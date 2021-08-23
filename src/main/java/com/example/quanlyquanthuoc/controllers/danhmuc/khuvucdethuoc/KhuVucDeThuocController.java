@@ -42,4 +42,13 @@ public class KhuVucDeThuocController {
         return khuVucDeThuocService.fetchById(id);
     }
 
+
+    @GetMapping("/find/page")
+    public Map<String, Object> getAllPage( @RequestParam(required = false) String searchString,
+                                           @RequestParam(required = false) Integer pageSize,
+                                           @RequestParam(required = false) Integer page,
+                                           @RequestParam(required = false) String sortData
+    ) {
+        return khuVucDeThuocService.findAll(searchString,pageSize,page,sortData);
+    }
 }

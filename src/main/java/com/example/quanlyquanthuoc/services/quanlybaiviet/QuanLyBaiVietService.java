@@ -2,6 +2,8 @@ package com.example.quanlyquanthuoc.services.quanlybaiviet;
 
 import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiViet;
 import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Map;
 
@@ -22,5 +24,7 @@ public interface QuanLyBaiVietService {
     public Map<String, Object> delete(Long[] listIds);
 
     public Map<String, Object> deleteVinhVien(Long[] listIds);
+
+    public Map<String, Object> findAll(String  searchString,Integer pageSize,Integer page,String sortData);
 
 }

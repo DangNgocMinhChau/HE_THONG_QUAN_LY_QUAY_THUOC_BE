@@ -46,5 +46,12 @@ public class TagController {
         return tagService.getAllSelect();
     }
 
-
+    @GetMapping("/find/page")
+    public Map<String, Object> getAllPage( @RequestParam(required = false) String searchString,
+                                           @RequestParam(required = false) Integer pageSize,
+                                           @RequestParam(required = false) Integer page,
+                                           @RequestParam(required = false) String sortData
+    ) {
+        return tagService.findAll(searchString,pageSize,page,sortData);
+    }
 }

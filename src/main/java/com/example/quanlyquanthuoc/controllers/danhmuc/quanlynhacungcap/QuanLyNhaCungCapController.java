@@ -39,4 +39,13 @@ public class QuanLyNhaCungCapController {
     public Map<String, Object> getQuanLyTaiKhoanById(@PathVariable Long id) {
         return quanLyNhaCungCapService.fetchById(id);
     }
+
+    @GetMapping("/find/page")
+    public Map<String, Object> getAllPage( @RequestParam(required = false) String searchString,
+                                           @RequestParam(required = false) Integer pageSize,
+                                           @RequestParam(required = false) Integer page,
+                                           @RequestParam(required = false) String sortData
+    ) {
+        return quanLyNhaCungCapService.findAll(searchString,pageSize,page,sortData);
+    }
 }

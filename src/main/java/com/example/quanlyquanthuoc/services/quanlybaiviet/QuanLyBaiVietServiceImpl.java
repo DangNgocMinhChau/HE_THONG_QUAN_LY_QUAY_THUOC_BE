@@ -1,5 +1,6 @@
 package com.example.quanlyquanthuoc.services.quanlybaiviet;
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenSelect;
@@ -7,7 +8,11 @@ import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiViet;
 import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
 import com.example.quanlyquanthuoc.repositorys.quanlybaiviet.QuanLyBaiVietRepository;
+import javafx.scene.control.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,6 +28,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
         return quanLyBaiVietRepository.findById(baiVietId).orElse(null);
     }
 
+    @Autowired
+    private QuanLyBaiVietDao quanLyBaiVietDao;
     @Override
     public Map<String, Object> create(QuanLyBaiVietDto quanLyBaiVietDto) {
         Map<String, Object> result = new HashMap<>();
@@ -32,6 +39,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
             quanLyBaiViet.setNoiDung(quanLyBaiVietDto.getNoiDung());
             quanLyBaiViet.setTieuDe(quanLyBaiVietDto.getTieuDe());
             quanLyBaiViet.setTag(quanLyBaiVietDto.getTag());
+            quanLyBaiViet.setImgAvatar(quanLyBaiVietDto.getImgAvatar());
+            quanLyBaiViet.setGioiThieu(quanLyBaiVietDto.getGioiThieu());
             quanLyBaiViet.setFile(quanLyBaiVietDto.getFile());
             quanLyBaiViet.setNgayTaoBanGhi(quanLyBaiVietDto.getNgayTaoBanGhi());
             quanLyBaiViet.setFlag(true);
@@ -41,6 +50,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
             resultCreate.setNoiDung(quanLyBaiViet.getNoiDung());
             resultCreate.setTieuDe(quanLyBaiViet.getTieuDe());
             resultCreate.setFile(quanLyBaiViet.getFile());
+            resultCreate.setImgAvatar(quanLyBaiViet.getImgAvatar());
+            resultCreate.setGioiThieu(quanLyBaiViet.getGioiThieu());
             resultCreate.setTag(quanLyBaiViet.getTag());
             result.put("result", resultCreate);
             result.put("msg", "Thêm mới thành công");
@@ -63,6 +74,9 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
             object.setTieuDe(quanLyBaiVietDto.getTieuDe() != null ? quanLyBaiVietDto.getTieuDe() : object.getTieuDe());
             object.setFile(quanLyBaiVietDto.getFile() != null ? quanLyBaiVietDto.getFile() : object.getFile());
             object.setNoiDung(quanLyBaiVietDto.getNoiDung() != null ? quanLyBaiVietDto.getNoiDung() : object.getNoiDung());
+            object.setGioiThieu(quanLyBaiVietDto.getGioiThieu() != null ? quanLyBaiVietDto.getGioiThieu() : object.getGioiThieu());
+            object.setImgAvatar(quanLyBaiVietDto.getImgAvatar() != null ? quanLyBaiVietDto.getImgAvatar() : object.getImgAvatar());
+
             object.setNgayChinhSua(quanLyBaiVietDto.getNgayChinhSua());
 
             quanLyBaiVietRepository.save(object);
@@ -89,6 +103,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
                 quanLyBaiVietDto.setTag(quanLyBaiViet.getTag());
                 quanLyBaiVietDto.setNoiDung(quanLyBaiViet.getNoiDung());
                 quanLyBaiVietDto.setNgayTaoBanGhi(quanLyBaiViet.getNgayTaoBanGhi());
+                quanLyBaiVietDto.setGioiThieu(quanLyBaiViet.getGioiThieu());
+                quanLyBaiVietDto.setImgAvatar(quanLyBaiViet.getImgAvatar());
 
                 result.put("result", quanLyBaiVietDto);
                 result.put("status", true);
@@ -114,6 +130,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
                 quanLyBaiVietDto.setFile(quanLyBaiViet.getFile());
                 quanLyBaiVietDto.setTag(quanLyBaiViet.getTag());
                 quanLyBaiVietDto.setTieuDe(quanLyBaiViet.getTieuDe());
+                quanLyBaiVietDto.setImgAvatar(quanLyBaiViet.getImgAvatar());
+                quanLyBaiVietDto.setGioiThieu(quanLyBaiViet.getGioiThieu());
                 quanLyBaiVietDto.setNgayTaoBanGhi(quanLyBaiViet.getNgayTaoBanGhi());
                 if (quanLyBaiViet.getFlag()) {
                     quanLyBaiVietDtoList.add(quanLyBaiVietDto);
@@ -140,6 +158,8 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
                 quanLyBaiVietDto.setNoiDung(quanLyBaiViet.getNoiDung());
                 quanLyBaiVietDto.setFile(quanLyBaiViet.getFile());
                 quanLyBaiVietDto.setTag(quanLyBaiViet.getTag());
+                quanLyBaiVietDto.setGioiThieu(quanLyBaiViet.getGioiThieu());
+                quanLyBaiVietDto.setImgAvatar(quanLyBaiViet.getImgAvatar());
                 quanLyBaiVietDto.setTieuDe(quanLyBaiViet.getTieuDe());
                 quanLyBaiVietDto.setNgayTaoBanGhi(quanLyBaiViet.getNgayTaoBanGhi());
                 if (quanLyBaiViet.getFlag()) {
@@ -191,4 +211,46 @@ public class QuanLyBaiVietServiceImpl implements QuanLyBaiVietService {
         }
         return result;
     }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String,Object> mapResult = new HashMap<>();
+        try {
+            if(sortData == null){
+                sortData ="id DESC";
+            }
+
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null){
+            pageable = PageRequest.of(page - 1, pageSize);
+            mapResult.put("pagination", new PaginationDto(page,pageSize,quanLyBaiVietDao.countBaiViet(searchString)));
+            }
+            List<QuanLyBaiViet> bvList = quanLyBaiVietDao.getListBaiViet(searchString,pageable,sortData);
+            List<QuanLyBaiVietDto> baiVietDtos = new ArrayList<QuanLyBaiVietDto>();
+            for(QuanLyBaiViet quanLyBaiViet : bvList){
+                QuanLyBaiVietDto quanLyBaiVietDto = new QuanLyBaiVietDto();
+                quanLyBaiVietDto.setId(quanLyBaiViet.getId());
+                quanLyBaiVietDto.setNoiDung(quanLyBaiViet.getNoiDung());
+                quanLyBaiVietDto.setFile(quanLyBaiViet.getFile());
+                quanLyBaiVietDto.setTag(quanLyBaiViet.getTag());
+                quanLyBaiVietDto.setTieuDe(quanLyBaiViet.getTieuDe());
+                quanLyBaiVietDto.setImgAvatar(quanLyBaiViet.getImgAvatar());
+                quanLyBaiVietDto.setGioiThieu(quanLyBaiViet.getGioiThieu());
+                quanLyBaiVietDto.setNgayTaoBanGhi(quanLyBaiViet.getNgayTaoBanGhi());
+                baiVietDtos.add(quanLyBaiVietDto);
+            }
+            mapResult.put("result",baiVietDtos);
+            mapResult.put("status",true);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            mapResult.put("result",null);
+            mapResult.put("status",false);
+            mapResult.put("msg","Lấy danh sách thất bại");
+        }
+        return mapResult;
+    }
+
+
 }

@@ -10,6 +10,9 @@ public class QuanLyBaiVietDto {
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
     private Boolean flag;
+    private String imgAvatar;
+    private String gioiThieu;
+
 
     public QuanLyBaiVietDto() {
     }
@@ -84,5 +87,21 @@ public class QuanLyBaiVietDto {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getImgAvatar() {
+        return imgAvatar;
+    }
+
+    public void setImgAvatar(String imgAvatar) {
+        this.imgAvatar = imgAvatar;
+    }
+
+    public String getGioiThieu() {
+        return gioiThieu;
+    }
+
+    public void setGioiThieu(String gioiThieu) {
+        this.gioiThieu = gioiThieu;
     }
 }

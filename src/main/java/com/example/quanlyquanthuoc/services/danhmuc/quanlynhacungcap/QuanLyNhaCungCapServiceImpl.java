@@ -1,11 +1,17 @@
 package com.example.quanlyquanthuoc.services.danhmuc.quanlynhacungcap;
 
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCap;
 import com.example.quanlyquanthuoc.models.danhmuc.quanlynhacungcap.QuanLyNhaCungCapDTO;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
+import com.example.quanlyquanthuoc.models.quanlybaiviet.QuanLyBaiVietDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quanlynhacungcap.QuanLyNhaCungCapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +24,9 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
 
     @Autowired
     QuanLyNhaCungCapRepository quanLyNhaCungCapRepository;
+
+    @Autowired
+    QuanLyNhaCungCapDao quanLyNhaCungCapDao;
 
     @Override
     public Map<String, Object> create(QuanLyNhaCungCapDTO quanLyNhaCungCapDTO) {
@@ -173,5 +182,44 @@ public class QuanLyNhaCungCapServiceImpl implements QuanLyNhaCungCapService {
     @Override
     public QuanLyNhaCungCap findById(Long id) {
         return quanLyNhaCungCapRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String,Object> mapResult = new HashMap<>();
+        try{
+            if(sortData == null){
+                sortData ="id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null){
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page,pageSize,quanLyNhaCungCapDao.countNhaCungCap(searchString)));
+            }
+
+            List<QuanLyNhaCungCap> quanLyNhaCungCapList = quanLyNhaCungCapDao.getListNhaCungCap(searchString,pageable,sortData);
+            List<QuanLyNhaCungCapDTO> quanLyNhaCungCapDTOS = new ArrayList<QuanLyNhaCungCapDTO>();
+            for(QuanLyNhaCungCap quanLyNhaCungCap : quanLyNhaCungCapList){
+                QuanLyNhaCungCapDTO quanLyNhaCungCapDTO = new QuanLyNhaCungCapDTO();
+                quanLyNhaCungCapDTO.setId(quanLyNhaCungCap.getId());
+                quanLyNhaCungCapDTO.setMa(quanLyNhaCungCap.getMa());
+                quanLyNhaCungCapDTO.setTenNhaCungCap(quanLyNhaCungCap.getTenNhaCungCap());
+                quanLyNhaCungCapDTO.setDiaChiNhaCungCap(quanLyNhaCungCap.getDiaChiNhaCungCap());
+                quanLyNhaCungCapDTO.setEmail(quanLyNhaCungCap.getEmail());
+                quanLyNhaCungCapDTO.setSoDienThoaiNhaCungCap(quanLyNhaCungCap.getSoDienThoaiNhaCungCap());
+                quanLyNhaCungCapDTO.setMstNhaCungCap(quanLyNhaCungCap.getMstNhaCungCap());
+                quanLyNhaCungCapDTO.setZalo(quanLyNhaCungCap.getZalo());
+                quanLyNhaCungCapDTOS.add(quanLyNhaCungCapDTO);
+            }
+            mapResult.put("result",quanLyNhaCungCapDTOS);
+            mapResult.put("status",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            mapResult.put("result",null);
+            mapResult.put("status",false);
+            mapResult.put("msg","Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }

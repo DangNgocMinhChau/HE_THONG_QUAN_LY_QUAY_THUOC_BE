@@ -13,8 +13,12 @@ public class QuanLyBaiViet {
     private String tag;
     @Column(name="tieuDe" ,columnDefinition = "LONGTEXT")
     private String tieuDe;
+    @Column(name="gioiThieu" ,columnDefinition = "LONGTEXT")
+    private String gioiThieu;
     @Column(name="file" ,columnDefinition = "LONGTEXT")
     private String file;
+    @Column(name="imgAvatar" ,columnDefinition = "LONGTEXT")
+    private String imgAvatar;
     private Long nguoiTaoId;
     private String ngayTaoBanGhi;
     private String ngayChinhSua;
@@ -94,5 +98,21 @@ public class QuanLyBaiViet {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String getGioiThieu() {
+        return gioiThieu;
+    }
+
+    public void setGioiThieu(String gioiThieu) {
+        this.gioiThieu = gioiThieu;
+    }
+
+    public String getImgAvatar() {
+        return imgAvatar;
+    }
+
+    public void setImgAvatar(String imgAvatar) {
+        this.imgAvatar = imgAvatar;
     }
 }

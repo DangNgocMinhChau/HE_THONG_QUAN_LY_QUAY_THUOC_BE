@@ -1,10 +1,15 @@
 package com.example.quanlyquanthuoc.services.danhmuc.quyen;
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.Quyen;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenDto;
 import com.example.quanlyquanthuoc.models.danhmuc.quyen.QuyenSelect;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,6 +19,9 @@ public class QuyenServiceImpl implements QuyenService {
 
     @Autowired
     QuyenRepository quyenRepository;
+
+    @Autowired
+    QuyenDao quyenDao;
 
     @Override
     public Quyen findById(Long quyenId) {
@@ -171,5 +179,39 @@ public class QuyenServiceImpl implements QuyenService {
             result.put("status", false);
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String, Object> mapResult = new HashMap<>();
+        try {
+            if (sortData == null) {
+                sortData = "id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null) {
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page, pageSize, quyenDao.countQuyen(searchString)));
+            }
+
+            List<Quyen> quyenList = quyenDao.getListQuyen(searchString, pageable, sortData);
+            List<QuyenDto> quyenDtos = new ArrayList<QuyenDto>();
+            for (Quyen quyen : quyenList) {
+                QuyenDto quyenDto = new QuyenDto();
+                quyenDto.setId(quyen.getId());
+                quyenDto.setMa(quyen.getMa());
+                quyenDto.setTen(quyen.getTen());
+                quyenDtos.add(quyenDto);
+            }
+            mapResult.put("result", quyenDtos);
+            mapResult.put("status", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mapResult.put("result", null);
+            mapResult.put("status", false);
+            mapResult.put("msg", "Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }
