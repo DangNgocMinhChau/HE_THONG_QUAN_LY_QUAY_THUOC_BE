@@ -1,12 +1,18 @@
 package com.example.quanlyquanthuoc.services.quanlytaikhoan;
 
 
+import com.example.quanlyquanthuoc.common.PaginationDto;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.Tag;
+import com.example.quanlyquanthuoc.models.danhmuc.tag.TagDto;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoan;
 import com.example.quanlyquanthuoc.models.quanlytaikhoan.QuanLyTaiKhoanDTO;
 import com.example.quanlyquanthuoc.repositorys.quanlytaikhoan.QuanLyTaiKhoanRepository;
 import com.example.quanlyquanthuoc.repositorys.danhmuc.quyen.QuyenRepository;
 import com.example.quanlyquanthuoc.services.danhmuc.quyen.QuyenService;
+import com.example.quanlyquanthuoc.services.quanlykhothuoc.QuanLyKhoThuocDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +28,9 @@ public class QuanLyTaiKhoanServiceImpl implements QuanLyTaiKhoanService {
 
     @Autowired
     QuyenService quyenService;
+
+    @Autowired
+    QuanLyTaiKhoanDao quanLyTaiKhoanDao;
 
     @Override
     public Map<String, Object> create(QuanLyTaiKhoanDTO quanLyTaiKhoanDTO) {
@@ -337,5 +346,51 @@ public class QuanLyTaiKhoanServiceImpl implements QuanLyTaiKhoanService {
             result.put("status", false);
         }
         return result;
+    }
+
+    @Override
+    public Map<String, Object> findAll(String searchString, Integer pageSize, Integer page, String sortData) {
+        Map<String,Object> mapResult = new HashMap<>();
+        try{
+            if(sortData == null){
+                sortData ="id DESC";
+            }
+            Pageable pageable = null;
+
+            if (pageSize != null && page != null){
+                pageable = PageRequest.of(page - 1, pageSize);
+                mapResult.put("pagination", new PaginationDto(page,pageSize,quanLyTaiKhoanDao.countTaiKhoan(searchString)));
+            }
+
+            List<QuanLyTaiKhoan> quanLyTaiKhoanList = quanLyTaiKhoanDao.getListTaiKhoan(searchString,pageable,sortData);
+            List<QuanLyTaiKhoanDTO> quanLyTaiKhoanDTOS = new ArrayList<QuanLyTaiKhoanDTO>();
+            for(QuanLyTaiKhoan quanLyTaiKhoan : quanLyTaiKhoanList){
+                QuanLyTaiKhoanDTO quanLyTaiKhoanDTO = new QuanLyTaiKhoanDTO();
+                quanLyTaiKhoanDTO.setId(quanLyTaiKhoan.getId());
+                quanLyTaiKhoanDTO.setTenNguoiDung(quanLyTaiKhoan.getTenNguoiDung());
+                quanLyTaiKhoanDTO.setTenDangNhap(quanLyTaiKhoan.getTenDangNhap());
+                quanLyTaiKhoanDTO.setMatKhau(quanLyTaiKhoan.getMatKhau());
+                quanLyTaiKhoanDTO.setXacNhanMatKhau(quanLyTaiKhoan.getXacNhanMatKhau());
+                quanLyTaiKhoanDTO.setMatKhauGoc(quanLyTaiKhoan.getMatKhauGoc());
+                quanLyTaiKhoanDTO.setNgaySinh(quanLyTaiKhoan.getNgaySinh());
+                quanLyTaiKhoanDTO.setGioiTinh(quanLyTaiKhoan.getGioiTinh());
+                quanLyTaiKhoanDTO.setFacebook(quanLyTaiKhoan.getFacebook());
+                quanLyTaiKhoanDTO.setSoDienThoai(quanLyTaiKhoan.getSoDienThoai());
+                quanLyTaiKhoanDTO.setCmnd(quanLyTaiKhoan.getCmnd());
+                quanLyTaiKhoanDTO.setImg(quanLyTaiKhoan.getImg());
+                quanLyTaiKhoanDTO.setLockUser(quanLyTaiKhoan.getLockUser());
+                quanLyTaiKhoanDTO.setSoLanDangNhapSai(quanLyTaiKhoan.getSoLanDangNhapSai());
+
+                quanLyTaiKhoanDTOS.add(quanLyTaiKhoanDTO);
+            }
+            mapResult.put("result",quanLyTaiKhoanDTOS);
+            mapResult.put("status",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            mapResult.put("result",null);
+            mapResult.put("status",false);
+            mapResult.put("msg","Lấy danh sách thất bại");
+        }
+        return mapResult;
     }
 }

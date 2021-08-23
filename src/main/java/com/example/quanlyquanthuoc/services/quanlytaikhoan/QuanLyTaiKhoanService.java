@@ -23,5 +23,6 @@ public interface QuanLyTaiKhoanService {
 
     public Map<String, Object> getAccoutByTenDangNhap(String account);
 
+    public Map<String, Object> findAll(String  searchString,Integer pageSize,Integer page,String sortData);
 
 }
